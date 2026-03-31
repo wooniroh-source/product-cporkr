@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리 시스템 - 클린앤파트너즈</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-body">
+
+    <!-- 로그인 오버레이 -->
+    <div id="admin-login-overlay">
+        <div class="login-card">
+            <div class="login-logo">
+                <i class="fas fa-shield-alt"></i>
+                <h2>관리자 로그인</h2>
+                <p>클린앤파트너즈 관리 시스템</p>
+            </div>
+            <form id="admin-login-form" onsubmit="adminLogin(event)">
+                <div class="input-group" style="text-align:left;">
+                    <label>비밀번호</label>
+                    <div class="pw-input-wrap">
+                        <input type="password" id="admin-password-input" placeholder="비밀번호를 입력하세요" required autofocus>
+                        <button type="button" class="pw-toggle" onclick="togglePwVisibility()">
+                            <i class="fas fa-eye" id="pw-eye-icon"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="login-error" class="login-error" style="display:none;">비밀번호가 올바르지 않습니다.</div>
+                <button type="submit" class="submit-booking-btn" style="margin-top:0.5rem;">로그인</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="admin-main-container" class="admin-container" style="display:none;">
+        <!-- 사이드바 -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h2>Admin</h2>
+                <p>관리 시스템</p>
+                <button class="logout-btn" onclick="adminLogout()">
+                    <i class="fas fa-sign-out-alt"></i> 로그아웃
+                </button>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active" id="menu-reservations">
+                    <a href="javascript:void(0)" onclick="showSection('reservations')">
+                        <i class="fas fa-list"></i> <span>예약 현황</span>
+                    </a>
+                </li>
+                <li id="menu-banners">
+                    <a href="javascript:void(0)" onclick="showSection('banners')">
+                        <i class="fas fa-images"></i> <span>메인 배너</span>
+                    </a>
+                </li>
+                <li id="menu-mid-banners">
+                    <a href="javascript:void(0)" onclick="showSection('mid-banners')">
+                        <i class="fas fa-film"></i> <span>중간 배너</span>
+                    </a>
+                </li>
+                <li id="menu-res-banners">
+                    <a href="javascript:void(0)" onclick="showSection('res-banners')">
+                        <i class="fas fa-ticket"></i> <span>예약 이벤트 배너</span>
+                    </a>
+                </li>
+                <li id="menu-svc-banners">
+                    <a href="javascript:void(0)" onclick="showSection('svc-banners')">
+                        <i class="fas fa-tags"></i> <span>서비스 이벤트 배너</span>
+                    </a>
+                </li>
+                <li id="menu-about-banners">
+                    <a href="javascript:void(0)" onclick="showSection('about-banners')">
+                        <i class="fas fa-star"></i> <span>브랜드 소개 배너</span>
+                    </a>
+                </li>
+                <li id="menu-process">
+                    <a href="javascript:void(0)" onclick="showSection('process')">
+                        <i class="fas fa-tasks"></i> <span>공정 관리</span>
+                    </a>
+                </li>
+                <li id="menu-contacts">
+                    <a href="javascript:void(0)" onclick="showSection('contacts')">
+                        <i class="fas fa-comments"></i> <span>상담 문의</span>
+                    </a>
+                </li>
+                <li id="menu-security">
+                    <a href="javascript:void(0)" onclick="showSection('security')">
+                        <i class="fas fa-lock"></i> <span>보안 설정</span>
+                    </a>
+                </li>
+                <li class="menu-divider"></li>
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-home"></i> <span>홈페이지로</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- 메인 콘텐츠 -->
+        <main class="admin-content">
+            <!-- 예약 현황 섹션 -->
+            <div id="section-reservations" class="admin-section">
+                <header class="admin-header">
+                    <h1>예약 현황 대시보드</h1>
+                    <div class="admin-user">
+                        <span>관리자님, 환영합니다.</span>
+                    </div>
+                </header>
+
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <h3>전체 예약</h3>
+                        <p id="totalCount">0건</p>
+                    </div>
+                    <div class="stat-card pending">
+                        <h3>대기중</h3>
+                        <p id="pendingCount">0건</p>
+                    </div>
+                    <div class="stat-card confirmed">
+                        <h3>예약 확정</h3>
+                        <p id="confirmedCount">0건</p>
+                    </div>
+                </div>
+
+                <div class="admin-table-wrapper">
+                    <div class="table-header">
+                        <h3>최신 예약 목록</h3>
+                        <button id="refreshBtn" class="btn-sm" onclick="renderReservationTable()">
+                            <i class="fas fa-sync-alt"></i> 새로고침
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>신청일</th>
+                                    <th>예약일시</th>
+                                    <th>고객명</th>
+                                    <th>연락처</th>
+                                    <th>서비스</th>
+                                    <th>상태</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reservationTableBody">
+                                <!-- JS로 데이터 로딩 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="noDataMessage" class="no-data" style="display: none;">
+                        접수된 예약이 없습니다.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 메인 배너 관리 섹션 -->
+            <div id="section-banners" class="admin-section" style="display: none;">
+                <header class="admin-header">
+                    <h1>메인 슬라이드 배너 관리</h1>
+                </header>
+
+                <div class="admin-table-wrapper" style="margin-bottom: 2rem;">
+                    <h3>새 메인 배너 추가</h3>
+                    <form id="bannerForm" class="admin-form" onsubmit="handleBannerSubmitHero(event)">
+                        <input type="hidden" id="bannerEditId" value="">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>배너 제목</label>
+                                <input type="text" id="bannerTitle" placeholder="예: 프리미엄 에어컨 케어" required>
+                            </div>
+                            <div class="input-group">
+                                <label>배너 이미지 URL</label>
+                                <input type="url" id="bannerUrl" placeholder="https://images.unsplash.com/..." required>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>배너 설명</label>
+                            <input type="text" id="bannerDesc" placeholder="배너에 표시될 상세 설명 문구" required>
+                        </div>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>버튼 텍스트</label>
+                                <input type="text" id="bannerBtnText" value="온라인 예약하기" required>
+                            </div>
+                            <div class="input-group">
+                                <label>버튼 링크</label>
+                                <input type="text" id="bannerBtnLink" value="reservation.html" required>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:1rem;align-items:center;">
+                            <button type="submit" id="bannerSubmitBtn" class="submit-booking-btn" style="width:auto;padding:0.8rem 2rem;">배너 등록하기</button>
+                            <button type="button" id="bannerCancelBtn" onclick="cancelBannerEdit('hero')" style="display:none;padding:0.8rem 1.5rem;background:#eee;border:none;border-radius:8px;cursor:pointer;font-size:1rem;">취소</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="admin-table-wrapper">
+                    <h3>현재 등록된 메인 배너 목록</h3>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>미리보기</th>
+                                    <th>내용</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bannerTableBody">
+                                <!-- JS로 데이터 로딩 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 중간 배너 관리 섹션 -->
+            <div id="section-mid-banners" class="admin-section" style="display: none;">
+                <header class="admin-header">
+                    <h1>중간 슬라이드 배너 관리</h1>
+                </header>
+
+                <div class="admin-table-wrapper" style="margin-bottom: 2rem;">
+                    <h3>새 중간 배너 추가</h3>
+                    <form id="midBannerForm" class="admin-form" onsubmit="handleMidBannerSubmit(event)">
+                        <input type="hidden" id="midBannerEditId" value="">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>배너 제목</label>
+                                <input type="text" id="midBannerTitle" required>
+                            </div>
+                            <div class="input-group">
+                                <label>배너 이미지 URL</label>
+                                <input type="url" id="midBannerUrl" required>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>배너 설명</label>
+                            <input type="text" id="midBannerDesc" required>
+                        </div>
+                        <div style="display:flex;gap:1rem;align-items:center;">
+                            <button type="submit" id="midBannerSubmitBtn" class="submit-booking-btn" style="width:auto;padding:0.8rem 2rem;">중간 배너 등록하기</button>
+                            <button type="button" id="midBannerCancelBtn" onclick="cancelBannerEdit('mid')" style="display:none;padding:0.8rem 1.5rem;background:#eee;border:none;border-radius:8px;cursor:pointer;font-size:1rem;">취소</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="admin-table-wrapper">
+                    <h3>현재 등록된 중간 배너 목록</h3>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>미리보기</th>
+                                    <th>내용</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody id="midBannerTableBody">
+                                <!-- JS로 데이터 로딩 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 예약 이벤트 배너 관리 섹션 -->
+            <div id="section-res-banners" class="admin-section" style="display: none;">
+                <header class="admin-header">
+                    <h1>예약 이벤트 배너 관리</h1>
+                </header>
+
+                <div class="admin-table-wrapper" style="margin-bottom: 2rem;">
+                    <h3>새 이벤트 배너 추가 / 수정</h3>
+                    <form id="resBannerForm" class="admin-form" onsubmit="handleResBannerSubmit(event)">
+                        <input type="hidden" id="resBannerEditId" value="">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>뱃지 텍스트 <small style="color:#888;">(예: 이벤트, 할인, NEW)</small></label>
+                                <input type="text" id="resBannerBadge" name="resBannerBadge" placeholder="이벤트" required>
+                            </div>
+                            <div class="input-group">
+                                <label>배너 제목</label>
+                                <input type="text" id="resBannerTitle" name="resBannerTitle" placeholder="봄맞이 에어컨 세척 특가!" required>
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>배너 설명</label>
+                                <input type="text" id="resBannerDesc" name="resBannerDesc" placeholder="배너에 표시될 상세 설명 문구" required>
+                            </div>
+                            <div class="input-group">
+                                <label>배너 이미지 URL</label>
+                                <input type="url" id="resBannerUrl" name="resBannerUrl" placeholder="https://images.unsplash.com/..." required>
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:1rem; align-items:center;">
+                            <button type="submit" id="resBannerSubmitBtn" class="submit-booking-btn" style="width: auto; padding: 0.8rem 2rem;">배너 등록하기</button>
+                            <button type="button" id="resBannerCancelBtn" onclick="cancelResBannerEdit()" style="display:none; padding: 0.8rem 1.5rem; background:#eee; border:none; border-radius:8px; cursor:pointer; font-size:1rem;">취소</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="admin-table-wrapper">
+                    <h3>현재 등록된 이벤트 배너 목록</h3>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>미리보기</th>
+                                    <th>내용</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody id="resBannerTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div id="noResBannerMessage" class="no-data" style="display:none;">등록된 배너가 없습니다.</div>
+                </div>
+            </div>
+
+            <!-- 서비스 이벤트 배너 관리 섹션 -->
+            <div id="section-svc-banners" class="admin-section" style="display: none;">
+                <header class="admin-header">
+                    <h1>서비스 이벤트 배너 관리</h1>
+                </header>
+
+                <div class="admin-table-wrapper" style="margin-bottom: 2rem;">
+                    <h3>새 이벤트 배너 추가 / 수정</h3>
+                    <form id="svcBannerForm" class="admin-form" onsubmit="handleSvcBannerSubmit(event)">
+                        <input type="hidden" id="svcBannerEditId" value="">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>뱃지 텍스트 <small style="color:#888;">(예: 이벤트, 할인, NEW)</small></label>
+                                <input type="text" id="svcBannerBadge" name="svcBannerBadge" placeholder="할인" required>
+                            </div>
+                            <div class="input-group">
+                                <label>배너 제목</label>
+                                <input type="text" id="svcBannerTitle" name="svcBannerTitle" placeholder="봄맞이 서비스 특가!" required>
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>배너 설명</label>
+                                <input type="text" id="svcBannerDesc" name="svcBannerDesc" placeholder="배너에 표시될 상세 설명 문구" required>
+                            </div>
+                            <div class="input-group">
+                                <label>배너 이미지 URL</label>
+                                <input type="url" id="svcBannerUrl" name="svcBannerUrl" placeholder="https://images.unsplash.com/..." required>
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:1rem; align-items:center;">
+                            <button type="submit" id="svcBannerSubmitBtn" class="submit-booking-btn" style="width: auto; padding: 0.8rem 2rem;">배너 등록하기</button>
+                            <button type="button" id="svcBannerCancelBtn" onclick="cancelSvcBannerEdit()" style="display:none; padding: 0.8rem 1.5rem; background:#eee; border:none; border-radius:8px; cursor:pointer; font-size:1rem;">취소</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="admin-table-wrapper">
+                    <h3>현재 등록된 이벤트 배너 목록</h3>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>미리보기</th>
+                                    <th>내용</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody id="svcBannerTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div id="noSvcBannerMessage" class="no-data" style="display:none;">등록된 배너가 없습니다.</div>
+                </div>
+            </div>
+
+            <!-- 브랜드 소개 배너 관리 섹션 -->
+            <div id="section-about-banners" class="admin-section" style="display: none;">
+                <header class="admin-header">
+                    <h1>브랜드 소개 배너 관리</h1>
+                </header>
+
+                <div class="admin-table-wrapper" style="margin-bottom: 2rem;">
+                    <h3>새 배너 추가 / 수정</h3>
+                    <form id="aboutBannerForm" class="admin-form" onsubmit="handleAboutBannerSubmit(event)">
+                        <input type="hidden" id="aboutBannerEditId" value="">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>뱃지 텍스트 <small style="color:#888;">(예: 브랜드, 스토리, 철학)</small></label>
+                                <input type="text" id="aboutBannerBadge" name="aboutBannerBadge" placeholder="브랜드" required>
+                            </div>
+                            <div class="input-group">
+                                <label>배너 제목</label>
+                                <input type="text" id="aboutBannerTitle" name="aboutBannerTitle" placeholder="10년의 신뢰, 클린앤파트너즈" required>
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>배너 설명</label>
+                                <input type="text" id="aboutBannerDesc" name="aboutBannerDesc" placeholder="배너에 표시될 상세 설명 문구" required>
+                            </div>
+                            <div class="input-group">
+                                <label>배너 이미지 URL</label>
+                                <input type="url" id="aboutBannerUrl" name="aboutBannerUrl" placeholder="https://images.unsplash.com/..." required>
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:1rem; align-items:center;">
+                            <button type="submit" id="aboutBannerSubmitBtn" class="submit-booking-btn" style="width: auto; padding: 0.8rem 2rem;">배너 등록하기</button>
+                            <button type="button" id="aboutBannerCancelBtn" onclick="cancelAboutBannerEdit()" style="display:none; padding: 0.8rem 1.5rem; background:#eee; border:none; border-radius:8px; cursor:pointer; font-size:1rem;">취소</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="admin-table-wrapper">
+                    <h3>현재 등록된 배너 목록</h3>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>미리보기</th>
+                                    <th>내용</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody id="aboutBannerTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div id="noAboutBannerMessage" class="no-data" style="display:none;">등록된 배너가 없습니다.</div>
+                </div>
+            </div>
+
+            <!-- 상담 문의 섹션 -->
+            <div id="section-contacts" class="admin-section" style="display: none;">
+                <header class="admin-header">
+                    <h1>상담 문의 내역</h1>
+                    <div class="admin-user">
+                        <button id="refreshContactBtn" class="btn-sm" onclick="renderContactTable()">
+                            <i class="fas fa-sync-alt"></i> 새로고침
+                        </button>
+                    </div>
+                </header>
+
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <h3>전체 문의</h3>
+                        <p id="contactTotalCount">0건</p>
+                    </div>
+                    <div class="stat-card pending">
+                        <h3>미확인</h3>
+                        <p id="contactUnreadCount">0건</p>
+                    </div>
+                    <div class="stat-card confirmed">
+                        <h3>확인 완료</h3>
+                        <p id="contactReadCount">0건</p>
+                    </div>
+                </div>
+
+                <div class="admin-table-wrapper">
+                    <div class="table-header">
+                        <h3>문의 목록</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="admin-table contact-table">
+                            <thead>
+                                <tr>
+                                    <th>접수일시</th>
+                                    <th>이름</th>
+                                    <th>연락처</th>
+                                    <th>문의 내용</th>
+                                    <th>상태</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contactTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div id="noContactMessage" class="no-data" style="display:none;">접수된 문의가 없습니다.</div>
+                </div>
+            </div>
+
+            <!-- 공정 관리 섹션 -->
+            <div id="section-process" class="admin-section" style="display: none;">
+                <header class="admin-header">
+                    <h1>6단계 안심 공정 관리</h1>
+                </header>
+
+                <div class="admin-table-wrapper">
+                    <h3>단계별 이미지 및 내용 수정</h3>
+                    <form id="processForm" onsubmit="handleProcessSubmit(event)">
+                        <div id="process-steps-edit-container" class="form-grid-3">
+                            <!-- JS로 6개 단계 폼 생성됨 -->
+                        </div>
+                        <div style="margin-top: 2rem; text-align: center;">
+                            <button type="submit" class="submit-booking-btn" style="width: auto; padding: 1rem 4rem;">공정 정보 전체 저장하기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- 보안 설정 섹션 -->
+            <div id="section-security" class="admin-section" style="display: none;">
+                <header class="admin-header">
+                    <h1>보안 설정</h1>
+                </header>
+
+                <div class="admin-table-wrapper" style="max-width: 500px;">
+                    <h3><i class="fas fa-key" style="margin-right:0.5rem;color:var(--primary);"></i>비밀번호 변경</h3>
+                    <form id="pw-change-form" class="admin-form" onsubmit="changeAdminPassword(event)" style="margin-top:1.5rem;">
+                        <div class="input-group">
+                            <label>현재 비밀번호</label>
+                            <input type="password" id="current-password" placeholder="현재 비밀번호 입력" required>
+                        </div>
+                        <div class="input-group">
+                            <label>새 비밀번호 <small style="color:#888;">(4자 이상)</small></label>
+                            <input type="password" id="new-password" placeholder="새 비밀번호 입력" required minlength="4">
+                        </div>
+                        <div class="input-group">
+                            <label>새 비밀번호 확인</label>
+                            <input type="password" id="confirm-password" placeholder="새 비밀번호 재입력" required>
+                        </div>
+                        <div id="pw-change-error" style="display:none; color:#dc2626; background:#fef2f2; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; margin-bottom:1rem;"></div>
+                        <div id="pw-change-success" style="display:none; color:#065f46; background:#d1fae5; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; margin-bottom:1rem;">✅ 비밀번호가 변경되었습니다. 다음 로그인부터 적용됩니다.</div>
+                        <button type="submit" class="submit-booking-btn" style="width:auto; padding:0.8rem 2rem;">비밀번호 변경</button>
+                    </form>
+                </div>
+
+                <div class="admin-table-wrapper" style="max-width: 500px; margin-top: 2rem;">
+                    <h3><i class="fas fa-info-circle" style="margin-right:0.5rem;color:#64748b;"></i>보안 안내</h3>
+                    <ul style="margin-top:1rem; padding-left:1.2rem; line-height:2; color:#475569; font-size:0.92rem;">
+                        <li>비밀번호는 SHA-256으로 암호화되어 저장됩니다.</li>
+                        <li>로그인 세션은 브라우저 탭을 닫으면 자동 만료됩니다.</li>
+                        <li>비밀번호는 4자 이상이면 설정 가능합니다.</li>
+                        <li>비밀번호를 분실한 경우 개발자에게 초기화를 요청하세요.</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="main.js"></script>
+</div><!-- /admin-main-container -->
+</body>
+</html>
