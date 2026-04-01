@@ -68,6 +68,18 @@
                     <label for="message">문의 내용</label>
                     <textarea id="message" name="message" rows="5" placeholder="궁금하신 내용을 입력하세요"></textarea>
                 </div>
+                <div class="input-group" style="margin-top: 0.5rem;">
+                    <label style="display:flex; align-items:flex-start; gap:0.7rem; cursor:pointer; font-weight:400;">
+                        <input type="checkbox" id="privacy-agree" name="privacy_agree" required
+                               style="margin-top:3px; width:18px; height:18px; flex-shrink:0; accent-color:var(--primary);">
+                        <span style="font-size:0.9rem; color:#555; line-height:1.6;">
+                            <strong style="color:var(--dark);">[필수]</strong> 개인정보 수집·이용에 동의합니다.
+                            수집 항목: 이름, 연락처, 문의내용 / 이용 목적: 상담 및 문의 응대 / 보유 기간: 처리 완료 후 6개월.
+                            <a href="privacy.html" target="_blank" rel="noopener"
+                               style="color:var(--primary); font-weight:600; text-decoration:underline;">개인정보처리방침 보기</a>
+                        </span>
+                    </label>
+                </div>
                 <button type="submit" class="submit-booking-btn">문의하기 신청</button>
             </form>
         </section>
