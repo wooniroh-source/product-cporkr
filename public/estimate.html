@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>간편 견적 계산기 - 클린앤파트너즈</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── 페이지 전용 스타일 ── */
+        #estimate-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 4rem 5% 3rem;
+            text-align: center;
+            color: #fff;
+            margin: 0;
+            max-width: 100%;
+        }
+        #estimate-hero h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 0.6rem; }
+        #estimate-hero p  { font-size: 1.1rem; opacity: 0.9; }
+
+        /* ── 계산기 카드 ── */
+        #estimate-section {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 3rem 5% 6rem;
+        }
+
+        .calc-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+        .calc-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .calc-card h3 .step-num {
+            background: var(--primary);
+            color: #fff;
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center; justify-content: center;
+            font-size: 0.8rem; font-weight: 800;
+        }
+
+        /* ── 에어컨 타입 선택 ── */
+        .ac-type-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+        }
+        @media (max-width: 540px) {
+            .ac-type-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .ac-type-btn {
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 1rem 0.6rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #fff;
+            user-select: none;
+        }
+        .ac-type-btn:hover { border-color: var(--secondary); background: #f0f8ff; }
+        .ac-type-btn.selected {
+            border-color: var(--primary);
+            background: #e8f2ff;
+        }
+        .ac-type-btn i { font-size: 2rem; color: var(--gray); display: block; margin-bottom: 0.5rem; transition: color 0.2s; }
+        .ac-type-btn.selected i { color: var(--primary); }
+        .ac-type-btn .type-name { font-size: 0.95rem; font-weight: 700; color: var(--dark); }
+        .ac-type-btn .type-price { font-size: 0.8rem; color: var(--gray); margin-top: 0.2rem; }
+        .ac-type-btn.selected .type-price { color: var(--primary); font-weight: 600; }
+
+        /* ── 수량 컨트롤 ── */
+        .qty-control {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .qty-btn {
+            width: 42px; height: 42px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            background: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s; color: var(--primary); font-weight: 700;
+        }
+        .qty-btn:hover { border-color: var(--primary); background: #e8f2ff; }
+        #ac-count-display {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--dark);
+            min-width: 50px;
+            text-align: center;
+        }
+        .qty-label { color: var(--gray); font-size: 0.95rem; }
+        .discount-badge {
+            display: none;
+            margin-left: auto;
+            background: #dcfce7;
+            color: #15803d;
+            border-radius: 20px;
+            padding: 5px 14px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        /* ── 추가 옵션 ── */
+        .option-list { display: flex; flex-direction: column; gap: 0.7rem; }
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 0.9rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+        .option-item:hover { border-color: var(--secondary); background: #f0f8ff; }
+        .option-item.checked { border-color: var(--primary); background: #e8f2ff; }
+        .option-item input[type="checkbox"] { display: none; }
+        .option-check-icon {
+            width: 22px; height: 22px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; transition: all 0.2s;
+            font-size: 0.75rem; color: #fff;
+        }
+        .option-item.checked .option-check-icon {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        .option-text { flex: 1; font-weight: 600; font-size: 0.95rem; }
+        .option-text small { display: block; color: var(--gray); font-weight: 400; font-size: 0.8rem; }
+        .option-price-tag {
+            font-weight: 700; font-size: 0.9rem;
+            color: var(--primary);
+            background: #e8f2ff;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        /* ── 요약 & 결과 ── */
+        .result-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            color: #fff;
+            box-shadow: 0 8px 25px rgba(0,102,204,0.3);
+        }
+        .result-rows { margin-bottom: 1.5rem; }
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.95rem;
+        }
+        .result-row:last-child { border-bottom: none; }
+        .result-row .label { opacity: 0.85; }
+        .result-row .value { font-weight: 700; }
+        .result-row.discount-row .value { color: #a7f3d0; }
+
+        .total-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.15);
+            border-radius: 14px;
+            padding: 1.2rem 1.5rem;
+            margin-top: 1rem;
+        }
+        .total-area .total-label { font-size: 1rem; font-weight: 600; }
+        .total-area .total-price { font-size: 2rem; font-weight: 900; letter-spacing: -1px; }
+
+        /* ── CTA 버튼 ── */
+        .cta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+        @media (max-width: 400px) { .cta-grid { grid-template-columns: 1fr; } }
+
+        .cta-btn {
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+            padding: 1rem; border-radius: 12px;
+            font-weight: 700; font-size: 0.95rem;
+            text-decoration: none; transition: all 0.2s;
+        }
+        .cta-btn.naver { background: #03cf5d; color: #fff; }
+        .cta-btn.naver:hover { background: #02b551; transform: translateY(-2px); }
+        .cta-btn.kakao { background: #fee500; color: #3c1e1e; }
+        .cta-btn.kakao:hover { background: #f5dc00; transform: translateY(-2px); }
+        .cta-btn.phone { background: var(--dark); color: #fff; grid-column: span 2; }
+        .cta-btn.phone:hover { background: #1a1a1a; transform: translateY(-2px); }
+
+        /* ── 견적 복사 영역 ── */
+        .copy-section { margin-top: 1rem; }
+        .copy-section textarea {
+            width: 100%; height: 110px; padding: 0.8rem 1rem;
+            border: 1px solid var(--border); border-radius: 10px;
+            font-family: inherit; font-size: 0.85rem; resize: none; color: var(--dark);
+            background: var(--light);
+        }
+        .copy-btn {
+            width: 100%; margin-top: 0.5rem; padding: 0.85rem;
+            background: var(--primary); color: #fff;
+            border: none; border-radius: 10px;
+            font-weight: 700; font-size: 0.95rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+            transition: background 0.2s;
+        }
+        .copy-btn:hover { background: #1a4fd8; }
+        .copy-btn.copied { background: var(--green); }
+
+        /* ── 안내 메시지 ── */
+        .info-notice {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            font-size: 0.88rem;
+            color: #92400e;
+            display: flex; gap: 0.6rem;
+            align-items: flex-start;
+            margin-top: 1rem;
+        }
+
+        /* ── 하단 고정 버튼 ── */
+        #sticky-bar {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: var(--primary);
+            padding: 0.9rem 1rem;
+            text-align: center;
+            z-index: 999;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+        }
+        #sticky-bar a {
+            color: #fff; font-weight: 700; font-size: 1rem;
+            text-decoration: none;
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">클린앤파트너즈</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="services.html">서비스 안내</a></li>
+                <li><a href="estimate.html" class="active">간편 견적</a></li>
+                <li><a href="reservation.html">실시간 예약</a></li>
+                <li><a href="about.html">브랜드 소개</a></li>
+                <li><a href="contact.html">고객센터</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="tel:15888776" class="nav-phone-btn">
+                    <i class="fas fa-phone"></i>
+                    <span class="phone-label">1588-8776</span>
+                </a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="estimate-hero">
+            <h1><i class="fas fa-calculator"></i> 간편 견적 계산기</h1>
+            <p>에어컨 종류와 수량을 선택하면 예상 금액을 바로 확인할 수 있어요</p>
+        </section>
+
+        <section id="estimate-section">
+
+            <!-- STEP 1: 에어컨 종류 -->
+            <div class="calc-card">
+                <h3><span class="step-num">1</span> 에어컨 종류 선택</h3>
+                <div class="ac-type-grid" id="ac-type-grid">
+                    <div class="ac-type-btn selected" data-price="60000" data-label="벽걸이">
+                        <i class="fas fa-wind"></i>
+                        <div class="type-name">벽걸이</div>
+                        <div class="type-price">60,000원~</div>
+                    </div>
+                    <div class="ac-type-btn" data-price="110000" data-label="스탠드">
+                        <i class="fas fa-server"></i>
+                        <div class="type-name">스탠드</div>
+                        <div class="type-price">110,000원~</div>
+                    </div>
+                    <div class="ac-type-btn" data-price="130000" data-label="무풍/고급">
+                        <i class="fas fa-snowflake"></i>
+                        <div class="type-name">무풍/고급</div>
+                        <div class="type-price">130,000원~</div>
+                    </div>
+                    <div class="ac-type-btn" data-price="80000" data-label="시스템 1way">
+                        <i class="fas fa-th-large"></i>
+                        <div class="type-name">시스템 1way</div>
+                        <div class="type-price">80,000원~</div>
+                    </div>
+                    <div class="ac-type-btn" data-price="130000" data-label="시스템 4way">
+                        <i class="fas fa-border-all"></i>
+                        <div class="type-name">시스템 4way</div>
+                        <div class="type-price">130,000원~</div>
+                    </div>
+                    <div class="ac-type-btn" data-price="170000" data-label="2in1">
+                        <i class="fas fa-layer-group"></i>
+                        <div class="type-name">2in1</div>
+                        <div class="type-price">170,000원~</div>
+                    </div>
+                    <div class="ac-type-btn" data-price="140000" data-label="상업용 스탠드">
+                        <i class="fas fa-building"></i>
+                        <div class="type-name">상업용 스탠드</div>
+                        <div class="type-price">140,000원~</div>
+                    </div>
+                    <div class="ac-type-btn" data-price="90000" data-label="FCU 팬코일유닛">
+                        <i class="fas fa-fan"></i>
+                        <div class="type-name">FCU 팬코일유닛</div>
+                        <div class="type-price">90,000원~</div>
+                    </div>
+                    <div class="ac-type-btn" data-price="150000" data-label="시스템원형 360">
+                        <i class="fas fa-circle-notch"></i>
+                        <div class="type-name">시스템원형 360</div>
+                        <div class="type-price">150,000원~</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2: 수량 -->
+            <div class="calc-card">
+                <h3><span class="step-num">2</span> 수량 선택</h3>
+                <div class="qty-control">
+                    <button class="qty-btn" id="qty-minus"><i class="fas fa-minus"></i></button>
+                    <span id="ac-count-display">1</span>
+                    <span class="qty-label">대</span>
+                    <button class="qty-btn" id="qty-plus"><i class="fas fa-plus"></i></button>
+                    <span class="discount-badge" id="discount-badge"></span>
+                </div>
+            </div>
+
+            <!-- STEP 3: 추가 옵션 -->
+            <div class="calc-card">
+                <h3><span class="step-num">3</span> 추가 옵션 (선택)</h3>
+                <div class="option-list">
+                    <label class="option-item" id="opt-outdoor">
+                        <input type="checkbox" class="opt-checkbox" data-price="20000">
+                        <span class="option-check-icon"><i class="fas fa-check"></i></span>
+                        <span class="option-text">
+                            실외기 포함
+                            <small>실외기 분리 세척 추가</small>
+                        </span>
+                        <span class="option-price-tag">+20,000원</span>
+                    </label>
+                    <label class="option-item" id="opt-mold">
+                        <input type="checkbox" class="opt-checkbox" data-price="30000">
+                        <span class="option-check-icon"><i class="fas fa-check"></i></span>
+                        <span class="option-text">
+                            곰팡이 심함
+                            <small>중증 오염 특수 처리 추가</small>
+                        </span>
+                        <span class="option-price-tag">+30,000원</span>
+                    </label>
+                    <label class="option-item" id="opt-coating">
+                        <input type="checkbox" class="opt-checkbox" data-price="15000">
+                        <span class="option-check-icon"><i class="fas fa-check"></i></span>
+                        <span class="option-text">
+                            항균 코팅
+                            <small>세척 후 항균 코팅 처리</small>
+                        </span>
+                        <span class="option-price-tag">+15,000원</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 결과 카드 -->
+            <div class="result-card">
+                <div class="result-rows" id="result-rows">
+                    <!-- JS로 동적 렌더링 -->
+                </div>
+                <div class="total-area">
+                    <span class="total-label">총 예상 금액</span>
+                    <span class="total-price" id="total-price">60,000원</span>
+                </div>
+
+                <div class="cta-grid">
+                    <a id="naver-btn" href="#" target="_blank" rel="noopener" class="cta-btn naver">
+                        <i class="fas fa-comment"></i> 네이버 톡톡
+                    </a>
+                    <a id="kakao-btn" href="#" target="_blank" rel="noopener" class="cta-btn kakao">
+                        <i class="fas fa-comment-dots"></i> 카카오 상담
+                    </a>
+                    <a href="tel:15888776" class="cta-btn phone">
+                        <i class="fas fa-phone"></i> 1588-8776 전화 상담
+                    </a>
+                </div>
+            </div>
+
+            <div class="info-notice">
+                <i class="fas fa-info-circle" style="margin-top:2px;flex-shrink:0;"></i>
+                <span>위 금액은 예상 견적이며, 오염 정도·설치 환경·기종에 따라 실제 금액이 달라질 수 있습니다. 정확한 견적은 상담을 통해 안내드립니다.</span>
+            </div>
+
+            <!-- 관리자용 견적 복사 -->
+            <div class="copy-section">
+                <textarea id="admin-text" readonly placeholder="견적 내용이 여기에 표시됩니다"></textarea>
+                <button class="copy-btn" id="copy-btn" onclick="copyText()">
+                    <i class="fas fa-copy"></i> 견적 내용 복사
+                </button>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>클린앤파트너즈 에어컨 토탈 케어 | 상담전화: 1588-8776</p>
+            <p>&copy; 2026 클린앤파트너즈. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;"><a href="admin.html" style="color: #444; text-decoration: none;">Admin</a></p>
+        </div>
+    </footer>
+
+    <!-- 하단 고정 상담 버튼 -->
+    <div id="sticky-bar">
+        <a id="sticky-btn" href="#" target="_blank" rel="noopener">
+            <i class="fas fa-comments"></i> 지금 바로 카카오 상담하기
+        </a>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+    (function () {
+        const PRICES = {
+            base: 60000,
+            label: '벽걸이'
+        };
+        let state = {
+            typePrice: 60000,
+            typeLabel: '벽걸이',
+            count: 1,
+            options: {}
+        };
+
+        const countDisplay = document.getElementById('ac-count-display');
+        const discountBadge = document.getElementById('discount-badge');
+        const totalPriceEl = document.getElementById('total-price');
+        const resultRows = document.getElementById('result-rows');
+        const adminText = document.getElementById('admin-text');
+        const naverBtn = document.getElementById('naver-btn');
+        const kakaoBtn = document.getElementById('kakao-btn');
+        const stickyBtn = document.getElementById('sticky-btn');
+
+        // AC 타입 선택
+        document.querySelectorAll('.ac-type-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.ac-type-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                state.typePrice = parseInt(btn.dataset.price);
+                state.typeLabel = btn.dataset.label;
+                calculate();
+            });
+        });
+
+        // 수량 버튼
+        document.getElementById('qty-minus').addEventListener('click', () => {
+            if (state.count > 1) { state.count--; countDisplay.textContent = state.count; calculate(); }
+        });
+        document.getElementById('qty-plus').addEventListener('click', () => {
+            if (state.count < 20) { state.count++; countDisplay.textContent = state.count; calculate(); }
+        });
+
+        // 옵션 체크박스
+        document.querySelectorAll('.option-item').forEach(item => {
+            const cb = item.querySelector('input[type="checkbox"]');
+            item.addEventListener('click', () => {
+                cb.checked = !cb.checked;
+                item.classList.toggle('checked', cb.checked);
+                calculate();
+            });
+        });
+
+        function calculate() {
+            const optionLines = [];
+            let optionTotal = 0;
+
+            document.querySelectorAll('.opt-checkbox').forEach(cb => {
+                if (cb.checked) {
+                    const price = parseInt(cb.dataset.price);
+                    optionTotal += price;
+                    const label = cb.closest('.option-item').querySelector('.option-text').childNodes[0].textContent.trim();
+                    optionLines.push({ label, price });
+                }
+            });
+
+            const unitPrice = state.typePrice + optionTotal;
+            const original = unitPrice * state.count;
+            const discountRate = state.count >= 15 ? 0.15 : state.count >= 10 ? 0.10 : state.count >= 3 ? 0.05 : 0;
+            const final = Math.floor(original * (1 - discountRate));
+            const saved = original - final;
+
+            // 할인 뱃지
+            if (discountRate > 0) {
+                discountBadge.style.display = 'inline-block';
+                discountBadge.textContent = state.count >= 15 ? '15대↑ 15% 할인' : state.count >= 10 ? '10대↑ 10% 할인' : '3대↑ 5% 할인';
+            } else {
+                discountBadge.style.display = 'none';
+            }
+
+            // 결과 행 렌더링
+            let rowsHTML = `
+                <div class="result-row">
+                    <span class="label">에어컨 종류</span>
+                    <span class="value">${state.typeLabel}</span>
+                </div>
+                <div class="result-row">
+                    <span class="label">기본 단가</span>
+                    <span class="value">${state.typePrice.toLocaleString()}원</span>
+                </div>`;
+
+            optionLines.forEach(opt => {
+                rowsHTML += `<div class="result-row">
+                    <span class="label">${opt.label}</span>
+                    <span class="value">+${opt.price.toLocaleString()}원</span>
+                </div>`;
+            });
+
+            rowsHTML += `<div class="result-row">
+                    <span class="label">수량</span>
+                    <span class="value">${state.count}대 × ${unitPrice.toLocaleString()}원</span>
+                </div>`;
+
+            if (discountRate > 0) {
+                const discountLabel = discountRate === 0.15 ? '15대 이상 할인 (15%)' : discountRate === 0.10 ? '10대 이상 할인 (10%)' : '3대 이상 할인 (5%)';
+                rowsHTML += `<div class="result-row discount-row">
+                    <span class="label">${discountLabel}</span>
+                    <span class="value">-${saved.toLocaleString()}원</span>
+                </div>`;
+            }
+
+            resultRows.innerHTML = rowsHTML;
+            totalPriceEl.textContent = final.toLocaleString() + '원';
+
+            // 상담 메시지 생성
+            const optText = optionLines.map(o => o.label).join(', ') || '없음';
+            const msg = `[에어컨 청소 견적 문의]\n종류: ${state.typeLabel}\n수량: ${state.count}대\n옵션: ${optText}\n예상금액: ${final.toLocaleString()}원`;
+            adminText.value = msg;
+
+            const encoded = encodeURIComponent(msg);
+            naverBtn.href = `https://talk.naver.com/ct/wooniroh?text=${encoded}`;
+            kakaoBtn.href = `https://open.kakao.com/o/sgJdxooi?text=${encoded}`;
+            stickyBtn.href = `https://open.kakao.com/o/sgJdxooi?text=${encoded}`;
+        }
+
+        calculate();
+    })();
+
+    function copyText() {
+        const text = document.getElementById('admin-text');
+        text.select();
+        text.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+
+        const btn = document.getElementById('copy-btn');
+        btn.classList.add('copied');
+        btn.innerHTML = '<i class="fas fa-check"></i> 복사 완료!';
+        setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.innerHTML = '<i class="fas fa-copy"></i> 견적 내용 복사';
+        }, 2000);
+    }
+    </script>
+</body>
+</html>
