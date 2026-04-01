@@ -3,9 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>왜 클린앤파트너즈인가? - 클린앤파트너즈</title>
+    <title>브랜드 소개 - 클린앤파트너즈 에어컨 청소 전문</title>
+    <meta name="description" content="클린앤파트너즈는 10년 이상의 에어컨 청소 전문 기업입니다. 인체에 무해한 친환경 약품, 최신 전문 장비, 3개월 무상 A/S로 믿을 수 있는 서비스를 제공합니다.">
+    <meta name="keywords" content="에어컨청소전문업체, 에어컨세척업체, 에어컨청소브랜드, 클린앤파트너즈, 에어컨청소회사소개">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="브랜드 소개 - 클린앤파트너즈">
+    <meta property="og:description" content="10년 이상의 에어컨 청소 노하우. 친환경 약품, 전문 장비, 3개월 A/S 보장으로 차별화된 서비스를 경험하세요.">
+    <meta property="og:url" content="https://cp.or.kr/about.html">
+    <meta property="og:locale" content="ko_KR">
+    <link rel="canonical" href="https://cp.or.kr/about.html">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .about-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 5rem 5% 4rem;
+            text-align: center;
+            color: #fff;
+            max-width: 100%;
+        }
+        .about-hero h1 { font-size: 2.6rem; font-weight: 800; margin-bottom: 0.8rem; }
+        .about-hero p { font-size: 1.15rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+
+        .about-section { max-width: 1200px; margin: 0 auto; padding: 5rem 5%; }
+
+        .about-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 5rem; }
+        @media(max-width:768px){ .about-intro { grid-template-columns: 1fr; gap: 2rem; } }
+        .about-intro-text h2 { font-size: 2rem; font-weight: 800; color: var(--primary); margin-bottom: 1.2rem; line-height: 1.3; }
+        .about-intro-text p { color: #555; line-height: 1.9; font-size: 1rem; margin-bottom: 1rem; }
+        .about-intro-visual { background: linear-gradient(135deg, #e8f2ff, #f0f8ff); border-radius: 20px; padding: 3rem 2rem; text-align: center; }
+        .about-intro-visual .big-num { font-size: 4rem; font-weight: 900; color: var(--primary); line-height: 1; }
+        .about-intro-visual .big-label { font-size: 1rem; color: #666; margin-top: 0.3rem; }
+
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 5rem; }
+        @media(max-width:768px){ .stats-row { grid-template-columns: repeat(2,1fr); } }
+        .stat-box { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 2rem 1rem; text-align: center; box-shadow: var(--shadow); }
+        .stat-box .num { font-size: 2.2rem; font-weight: 900; color: var(--primary); }
+        .stat-box .unit { font-size: 1rem; font-weight: 700; color: var(--primary); }
+        .stat-box .desc { font-size: 0.9rem; color: #777; margin-top: 0.4rem; }
+
+        .section-h2 { font-size: 1.9rem; font-weight: 800; color: var(--primary); margin-bottom: 0.5rem; }
+        .section-sub { color: #666; font-size: 1rem; margin-bottom: 3rem; }
+
+        .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; margin-bottom: 5rem; }
+        .value-card { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 2.5rem 1.8rem; box-shadow: var(--shadow); transition: 0.3s; }
+        .value-card:hover { transform: translateY(-6px); border-color: var(--primary); }
+        .value-card .v-icon { font-size: 2.5rem; color: var(--primary); margin-bottom: 1.2rem; }
+        .value-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--dark); margin-bottom: 0.8rem; }
+        .value-card p { font-size: 0.95rem; color: #666; line-height: 1.8; }
+
+        .process-how { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 1.5rem; margin-bottom: 5rem; }
+        .ph-step { background: var(--light); border-radius: 16px; padding: 2rem 1.2rem; text-align: center; position: relative; }
+        .ph-step .ph-num { width: 36px; height: 36px; background: var(--primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; margin: 0 auto 1rem; }
+        .ph-step h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .ph-step p { font-size: 0.88rem; color: #666; line-height: 1.7; }
+
+        .cert-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 5rem; }
+        .cert-badge { display: flex; align-items: center; gap: 0.6rem; background: #e8f2ff; border-radius: 30px; padding: 0.6rem 1.2rem; font-size: 0.9rem; font-weight: 600; color: var(--primary); }
+
+        .promise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 2rem; }
+        .promise-item { display: flex; gap: 1rem; align-items: flex-start; }
+        .promise-item .p-icon { width: 44px; height: 44px; background: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.1rem; flex-shrink: 0; }
+        .promise-item h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .promise-item p { font-size: 0.9rem; color: #666; line-height: 1.7; }
+
+        .faq-section { background: var(--light); border-radius: 20px; padding: 3rem 2.5rem; margin-top: 5rem; }
+        .faq-section h2 { font-size: 1.6rem; font-weight: 800; color: var(--primary); margin-bottom: 2rem; }
+        .faq-item { border-bottom: 1px solid var(--border); padding: 1.2rem 0; }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-q { font-weight: 700; font-size: 1rem; color: var(--dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-q span { color: var(--primary); font-size: 1.1rem; }
+        .faq-a { font-size: 0.95rem; color: #666; line-height: 1.8; margin-top: 0.8rem; display: none; }
+        .faq-item.open .faq-a { display: block; }
+        .faq-item.open .faq-q span { transform: rotate(45deg); display: inline-block; }
+    </style>
 </head>
 <body>
     <header>
@@ -19,55 +90,259 @@
                 <li><a href="about.html">브랜드 소개</a></li>
                 <li><a href="contact.html">고객센터</a></li>
             </ul>
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+            <div class="nav-actions">
+                <a href="tel:15888776" class="nav-phone-btn">
+                    <i class="fas fa-phone"></i>
+                    <span class="phone-label">1588-8776</span>
+                </a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
             </div>
         </nav>
     </header>
 
     <main>
-        <section id="why-choose-us">
-            <!-- 브랜드 이벤트 배너 슬라이더 -->
-            <div class="res-banner-slider">
-                <div id="about-banner-container" class="res-banner-inner"></div>
-                <button class="res-banner-arrow res-banner-prev" id="about-banner-prev"><i class="fas fa-chevron-left"></i></button>
-                <button class="res-banner-arrow res-banner-next" id="about-banner-next"><i class="fas fa-chevron-right"></i></button>
-                <div id="about-banner-dots" class="res-banner-dots"></div>
+        <div class="about-hero">
+            <h1>클린앤파트너즈 브랜드 소개</h1>
+            <p>기술과 신뢰로 만드는 프리미엄 에어컨 케어 서비스</p>
+        </div>
+
+        <!-- 브랜드 이벤트 배너 슬라이더 -->
+        <div class="res-banner-slider" style="max-width:100%">
+            <div id="about-banner-container" class="res-banner-inner"></div>
+            <button class="res-banner-arrow res-banner-prev" id="about-banner-prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="res-banner-arrow res-banner-next" id="about-banner-next"><i class="fas fa-chevron-right"></i></button>
+            <div id="about-banner-dots" class="res-banner-dots"></div>
+        </div>
+
+        <section class="about-section">
+
+            <!-- 브랜드 스토리 -->
+            <div class="about-intro">
+                <div class="about-intro-text">
+                    <h2>에어컨 하나에도<br>전문성이 있어야 합니다</h2>
+                    <p>클린앤파트너즈는 단순한 청소를 넘어, 에어컨의 수명과 실내 공기질을 함께 책임지는 에어컨 토탈 케어 전문 브랜드입니다. 2013년 창립 이래 수만 건의 시공 경험을 바탕으로 기종별 맞춤 솔루션을 제공해 왔습니다.</p>
+                    <p>저희 엔지니어는 모두 자격을 갖춘 전문가로 구성되어 있으며, 벽걸이부터 상업용 대형 시스템 에어컨까지 어떤 기종도 완벽하게 처리합니다. 특히 무풍에어컨, 시스템 4way, 2in1 멀티형 등 까다로운 모델에도 특화된 노하우를 보유하고 있습니다.</p>
+                    <p>이용자의 건강과 가족의 안전을 위해, 모든 작업에 FDA 승인 친환경 약품만을 사용하며 시공 후 3개월 무상 A/S를 보장합니다. 클린앤파트너즈와 함께라면 다음 여름이 두렵지 않습니다.</p>
+                </div>
+                <div class="about-intro-visual">
+                    <div class="big-num">10<span style="font-size:2rem">년+</span></div>
+                    <div class="big-label">에어컨 청소 전문 경력</div>
+                    <hr style="margin: 1.5rem 0; border-color: #d0e8ff;">
+                    <div class="big-num">99<span style="font-size:2rem">%</span></div>
+                    <div class="big-label">고객 만족도</div>
+                    <hr style="margin: 1.5rem 0; border-color: #d0e8ff;">
+                    <div class="big-num">3<span style="font-size:2rem">개월</span></div>
+                    <div class="big-label">무상 A/S 보장</div>
+                </div>
             </div>
 
-            <div class="section-title">
-                <h2>왜 우리를 선택해야 할까요?</h2>
-                <p>클린앤파트너즈만의 차별화된 서비스를 약속드립니다.</p>
-            </div>
-            <div class="reasons">
-                <div class="reason">
-                    <i class="fas fa-tools"></i>
-                    <h3>최신 전문 장비</h3>
-                    <p>고압 세척기, 스팀 살균기 등 최신 장비를 사용하여 눈에 보이지 않는 세균까지 완벽한 청소를 보장합니다.</p>
+            <!-- 주요 수치 -->
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div><span class="num">50,000</span><span class="unit">+</span></div>
+                    <div class="desc">누적 시공 건수</div>
                 </div>
-                <div class="reason">
-                    <i class="fas fa-leaf"></i>
-                    <h3>친환경 약품 사용</h3>
-                    <p>아이와 반려동물이 있는 가정에서도 안심할 수 있도록 인체에 무해한 친환경 인증 약품만을 사용합니다.</p>
+                <div class="stat-box">
+                    <div><span class="num">99</span><span class="unit">%</span></div>
+                    <div class="desc">고객 재이용률</div>
                 </div>
-                <div class="reason">
-                    <i class="fas fa-calendar-check"></i>
-                    <h3>간편한 예약 시스템</h3>
-                    <p>전화 통화 없이도 온라인으로 24시간 언제 어디서나 원하는 날짜를 선택하여 예약할 수 있습니다.</p>
+                <div class="stat-box">
+                    <div><span class="num">10</span><span class="unit">년+</span></div>
+                    <div class="desc">평균 엔지니어 경력</div>
+                </div>
+                <div class="stat-box">
+                    <div><span class="num">9</span><span class="unit">가지</span></div>
+                    <div class="desc">에어컨 기종 대응</div>
                 </div>
             </div>
+
+            <!-- 핵심 가치 -->
+            <h2 class="section-h2">클린앤파트너즈의 핵심 가치</h2>
+            <p class="section-sub">모든 서비스의 기준이 되는 4가지 약속입니다</p>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="v-icon"><i class="fas fa-user-shield"></i></div>
+                    <h3>검증된 전문 엔지니어</h3>
+                    <p>모든 방문 기사는 에어컨 관련 자격증 보유자로, 채용 전 철저한 기술 테스트와 고객 응대 교육을 이수합니다. 낯선 이를 집에 맞이하는 만큼 신뢰를 최우선합니다.</p>
+                </div>
+                <div class="value-card">
+                    <div class="v-icon"><i class="fas fa-leaf"></i></div>
+                    <h3>친환경 인증 약품</h3>
+                    <p>사용하는 모든 세제는 FDA(미국 식품의약국) 승인을 받은 친환경 제품입니다. 신생아가 있는 가정, 호흡기 질환자, 반려동물 가정에서도 안전하게 사용할 수 있습니다.</p>
+                </div>
+                <div class="value-card">
+                    <div class="v-icon"><i class="fas fa-tools"></i></div>
+                    <h3>기종별 맞춤 장비</h3>
+                    <p>고압 세척기, 스팀 살균기, 음이온 코팅 장비 등 기종에 따라 최적화된 전문 장비를 사용합니다. 일반 청소 업체와는 다른 결과를 직접 확인하세요.</p>
+                </div>
+                <div class="value-card">
+                    <div class="v-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>3개월 무상 A/S</h3>
+                    <p>시공 완료 후 3개월 이내에 이상이 발생하면 무상으로 재처리합니다. 고객님이 만족하실 때까지 책임지는 것이 클린앤파트너즈의 원칙입니다.</p>
+                </div>
+                <div class="value-card">
+                    <div class="v-icon"><i class="fas fa-clock"></i></div>
+                    <h3>신속하고 정확한 시공</h3>
+                    <p>예약 후 평균 48시간 이내 방문을 원칙으로 합니다. 시공 전 충분한 설명과 시공 후 깔끔한 마무리까지, 고객의 시간을 소중히 여깁니다.</p>
+                </div>
+                <div class="value-card">
+                    <div class="v-icon"><i class="fas fa-won-sign"></i></div>
+                    <h3>투명한 정찰 요금제</h3>
+                    <p>현장에서 갑자기 추가 금액을 요구하지 않습니다. 상담 시 안내드린 금액이 최종 금액입니다. 견적 계산기로 미리 예상 금액을 확인하세요.</p>
+                </div>
+            </div>
+
+            <!-- 서비스 프로세스 -->
+            <h2 class="section-h2">서비스 진행 절차</h2>
+            <p class="section-sub">예약부터 A/S까지, 6단계로 완성됩니다</p>
+            <div class="process-how">
+                <div class="ph-step">
+                    <div class="ph-num">1</div>
+                    <h4>온라인 예약</h4>
+                    <p>웹사이트에서 원하는 날짜와 시간을 선택해 간편하게 예약</p>
+                </div>
+                <div class="ph-step">
+                    <div class="ph-num">2</div>
+                    <h4>예약 확인 연락</h4>
+                    <p>예약 완료 후 담당 기사가 사전 연락해 일정 및 기종 확인</p>
+                </div>
+                <div class="ph-step">
+                    <div class="ph-num">3</div>
+                    <h4>전문가 방문</h4>
+                    <p>약속 시간에 정확히 방문, 시공 전 상태 점검 및 작업 안내</p>
+                </div>
+                <div class="ph-step">
+                    <div class="ph-num">4</div>
+                    <h4>완전 분해 세척</h4>
+                    <p>기종별 맞춤 장비로 냉각핀·팬·필터 등 완전 분해 후 세척</p>
+                </div>
+                <div class="ph-step">
+                    <div class="ph-num">5</div>
+                    <h4>살균·코팅 처리</h4>
+                    <p>친환경 살균제 도포 및 선택 옵션에 따른 항균 코팅 처리</p>
+                </div>
+                <div class="ph-step">
+                    <div class="ph-num">6</div>
+                    <h4>마무리 및 A/S</h4>
+                    <p>작동 테스트 후 시공 결과 안내, 3개월 무상 A/S 보장 적용</p>
+                </div>
+            </div>
+
+            <!-- 자격·인증 -->
+            <h2 class="section-h2">보유 자격 및 인증</h2>
+            <p class="section-sub" style="margin-bottom:1.5rem;">클린앤파트너즈 엔지니어들이 보유한 주요 자격입니다</p>
+            <div class="cert-row">
+                <div class="cert-badge"><i class="fas fa-certificate"></i> 냉동공조기계기술사 보유</div>
+                <div class="cert-badge"><i class="fas fa-certificate"></i> 공조냉동기계기사 보유</div>
+                <div class="cert-badge"><i class="fas fa-certificate"></i> 실내공기질 관리사 보유</div>
+                <div class="cert-badge"><i class="fas fa-certificate"></i> FDA 승인 친환경 약품 사용</div>
+                <div class="cert-badge"><i class="fas fa-certificate"></i> 소비자만족도 우수 서비스 선정</div>
+            </div>
+
+            <!-- 서비스 약속 -->
+            <h2 class="section-h2" style="margin-top:4rem;">클린앤파트너즈의 약속</h2>
+            <p class="section-sub">고객님께 드리는 변하지 않는 6가지 약속</p>
+            <div class="promise-grid">
+                <div class="promise-item">
+                    <div class="p-icon"><i class="fas fa-check"></i></div>
+                    <div>
+                        <h4>예약 시간 엄수</h4>
+                        <p>약속된 시간에 정확히 방문합니다. 불가피한 지연 시 반드시 사전 연락드립니다.</p>
+                    </div>
+                </div>
+                <div class="promise-item">
+                    <div class="p-icon"><i class="fas fa-check"></i></div>
+                    <div>
+                        <h4>현장 추가 요금 없음</h4>
+                        <p>사전에 안내된 금액 외 현장에서 임의로 추가 금액을 청구하지 않습니다.</p>
+                    </div>
+                </div>
+                <div class="promise-item">
+                    <div class="p-icon"><i class="fas fa-check"></i></div>
+                    <div>
+                        <h4>깔끔한 뒷정리</h4>
+                        <p>작업 중 발생한 오염물을 모두 수거하고, 작업 공간을 원상태로 복구합니다.</p>
+                    </div>
+                </div>
+                <div class="promise-item">
+                    <div class="p-icon"><i class="fas fa-check"></i></div>
+                    <div>
+                        <h4>시공 전·후 사진 제공</h4>
+                        <p>고객 요청 시 시공 전·후 비교 사진을 제공하여 작업 결과를 투명하게 공개합니다.</p>
+                    </div>
+                </div>
+                <div class="promise-item">
+                    <div class="p-icon"><i class="fas fa-check"></i></div>
+                    <div>
+                        <h4>개인 정보 보호</h4>
+                        <p>고객님의 개인정보는 서비스 제공 목적으로만 사용하며 외부에 제공하지 않습니다.</p>
+                    </div>
+                </div>
+                <div class="promise-item">
+                    <div class="p-icon"><i class="fas fa-check"></i></div>
+                    <div>
+                        <h4>3개월 무상 A/S</h4>
+                        <p>시공 후 3개월 이내 이상 발생 시 100% 무상으로 재처리해 드립니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="faq-section">
+                <h2>자주 묻는 질문</h2>
+                <div class="faq-item">
+                    <div class="faq-q">에어컨 청소는 얼마나 자주 해야 하나요? <span>+</span></div>
+                    <div class="faq-a">일반 가정의 경우 1년에 1~2회, 특히 냉방 시작 전인 봄과 냉방 종료 후인 가을에 하시는 것이 좋습니다. 반려동물을 키우거나 요리가 많은 주방에 있는 에어컨은 6개월에 1회를 권장합니다. 상업 공간은 이용 빈도에 따라 더 자주 필요할 수 있습니다.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">청소 후 얼마나 기다려야 에어컨을 사용할 수 있나요? <span>+</span></div>
+                    <div class="faq-a">세척 후 에어컨 내부 건조를 위해 최소 1~2시간 통풍 후 사용을 권장합니다. 기사가 현장에서 정확한 대기 시간을 안내해 드립니다.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">청소 중 에어컨이 고장 나면 어떻게 하나요? <span>+</span></div>
+                    <div class="faq-a">클린앤파트너즈는 작업 중 발생한 제품 손상에 대해 전액 보상합니다. 시공 전 에어컨 상태를 함께 확인하고 기록하므로 걱정 없이 서비스를 이용하실 수 있습니다.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">시스템 에어컨도 청소할 수 있나요? <span>+</span></div>
+                    <div class="faq-a">네, 가능합니다. 시스템 1way, 4way, 원형 360, FCU 팬코일유닛 등 다양한 시스템 에어컨에 특화된 전문 장비와 노하우를 보유하고 있습니다. 사무실, 상가, 호텔 등 상업 공간도 서비스 가능합니다.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">친환경 약품이라도 아이에게 안전한가요? <span>+</span></div>
+                    <div class="faq-a">사용하는 모든 세제는 FDA 승인을 받은 친환경 제품으로, 신생아·아동·반려동물이 있는 가정에서도 안심하고 사용할 수 있습니다. 잔류 약품 없이 완전히 헹궈내므로 청소 후 사용 시 무해합니다.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">여러 대 청소 시 할인이 되나요? <span>+</span></div>
+                    <div class="faq-a">3대 이상 5%, 10대 이상 10%, 15대 이상 15% 할인이 적용됩니다. 정확한 견적은 간편 견적 계산기를 이용하거나 상담을 통해 확인하세요.</div>
+                </div>
+            </div>
+
         </section>
     </main>
 
     <footer>
         <div class="footer-content">
-            <p>클린앤파트너즈 에어컨 토탈 케어 | 상담전화: 1588-8776</p>
-            <p>&copy; 2026 클린앤파트너즈. All rights reserved.</p>
+            <p>클린앤파트너즈 에어컨 토탈 케어 | 상담전화: 1588-8776 | 이메일: info@cp.or.kr</p>
+            <p style="margin-top: 8px;">
+                <a href="privacy.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">개인정보처리방침</a>
+                <a href="contact.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">고객센터</a>
+                <a href="services.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">서비스 안내</a>
+            </p>
+            <p style="margin-top: 8px;">&copy; 2026 클린앤파트너즈. All rights reserved.</p>
             <p style="margin-top: 10px; font-size: 0.8rem;"><a href="admin.html" style="color: #444; text-decoration: none;">Admin</a></p>
         </div>
     </footer>
     <script src="main.js"></script>
+    <script>
+        // FAQ 토글
+        document.querySelectorAll('.faq-q').forEach(q => {
+            q.addEventListener('click', () => {
+                q.closest('.faq-item').classList.toggle('open');
+            });
+        });
+    </script>
 </body>
 </html>

@@ -3,9 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>서비스 안내 - 클린앤파트너즈</title>
+    <title>서비스 안내 및 가격 - 클린앤파트너즈 에어컨 청소</title>
+    <meta name="description" content="클린앤파트너즈 에어컨 청소 서비스 가격 안내. 벽걸이 60,000원~, 스탠드 110,000원~, 시스템 에어컨, 2in1, 상업용까지. 3대 이상 할인, 3개월 A/S 보장.">
+    <meta name="keywords" content="에어컨청소가격, 에어컨세척비용, 벽걸이에어컨청소가격, 스탠드에어컨청소비용, 시스템에어컨청소, 에어컨청소업체요금">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="서비스 안내 및 가격 - 클린앤파트너즈">
+    <meta property="og:description" content="에어컨 기종별 투명한 정찰 요금제. 벽걸이, 스탠드, 시스템, 상업용 에어컨 청소 가격을 확인하세요.">
+    <meta property="og:url" content="https://cp.or.kr/services.html">
+    <meta property="og:locale" content="ko_KR">
+    <link rel="canonical" href="https://cp.or.kr/services.html">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .svc-hero { background: linear-gradient(135deg, var(--primary), var(--secondary)); padding: 4.5rem 5% 3.5rem; text-align: center; color: #fff; max-width: 100%; }
+        .svc-hero h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 0.6rem; }
+        .svc-hero p { font-size: 1.1rem; opacity: 0.9; }
+
+        .svc-main { max-width: 1100px; margin: 0 auto; padding: 4rem 5% 5rem; }
+
+        .section-h2 { font-size: 1.8rem; font-weight: 800; color: var(--primary); margin-bottom: 0.5rem; }
+        .section-sub { color: #666; font-size: 1rem; margin-bottom: 2.5rem; }
+
+        /* 서비스 카드 그리드 */
+        .svc-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px,1fr)); gap: 1.8rem; margin-bottom: 4rem; }
+        .svc-card {
+            background: #fff; border: 1px solid var(--border); border-radius: 18px;
+            padding: 2rem 1.8rem; box-shadow: var(--shadow); transition: 0.3s;
+        }
+        .svc-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .svc-card .card-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
+        .svc-card .card-icon { width: 48px; height: 48px; background: #e8f2ff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: var(--primary); flex-shrink: 0; }
+        .svc-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); }
+        .svc-card .price-tag { font-size: 1.3rem; font-weight: 900; color: var(--primary); margin-bottom: 0.8rem; }
+        .svc-card .price-tag small { font-size: 0.85rem; font-weight: 500; color: #888; }
+        .svc-card p { font-size: 0.92rem; color: #666; line-height: 1.8; margin-bottom: 1rem; }
+        .svc-card ul { padding-left: 1.2rem; }
+        .svc-card ul li { font-size: 0.88rem; color: #666; line-height: 1.8; }
+        .svc-badge { display: inline-block; background: #dcfce7; color: #15803d; border-radius: 20px; padding: 3px 10px; font-size: 0.78rem; font-weight: 700; margin-bottom: 0.8rem; }
+        .svc-badge.commercial { background: #fff3cd; color: #856404; }
+
+        /* 가격표 */
+        .price-wrap { overflow-x: auto; margin-bottom: 4rem; }
+
+        /* 옵션 섹션 */
+        .option-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; margin-bottom: 4rem; }
+        .opt-card { background: var(--light); border-radius: 14px; padding: 1.5rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem; }
+        .opt-card .opt-name { font-weight: 700; font-size: 1rem; color: var(--dark); }
+        .opt-card .opt-price { font-size: 1.2rem; font-weight: 900; color: var(--primary); }
+        .opt-card .opt-desc { font-size: 0.88rem; color: #666; line-height: 1.7; }
+
+        /* 할인 정책 */
+        .discount-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 1.2rem; margin-bottom: 4rem; }
+        .discount-item { background: #fff; border: 2px solid var(--border); border-radius: 16px; padding: 1.8rem 1.2rem; text-align: center; transition: 0.2s; }
+        .discount-item:hover { border-color: var(--primary); }
+        .discount-item .d-qty { font-size: 1.5rem; font-weight: 800; color: var(--dark); }
+        .discount-item .d-rate { font-size: 2rem; font-weight: 900; color: var(--primary); margin: 0.3rem 0; }
+        .discount-item .d-desc { font-size: 0.88rem; color: #777; }
+
+        /* FAQ */
+        .faq-box { background: var(--light); border-radius: 20px; padding: 3rem 2.5rem; }
+        .faq-box h2 { font-size: 1.6rem; font-weight: 800; color: var(--primary); margin-bottom: 2rem; }
+        .faq-item { border-bottom: 1px solid var(--border); padding: 1.2rem 0; }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-q { font-weight: 700; font-size: 1rem; color: var(--dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-q span { color: var(--primary); font-size: 1.1rem; transition: 0.2s; }
+        .faq-a { font-size: 0.95rem; color: #666; line-height: 1.8; margin-top: 0.8rem; display: none; }
+        .faq-item.open .faq-a { display: block; }
+        .faq-item.open .faq-q span { transform: rotate(45deg); display: inline-block; }
+
+        .notice-box { background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 1rem 1.4rem; font-size: 0.9rem; color: #92400e; margin-bottom: 3rem; display: flex; gap: 0.6rem; align-items: flex-start; }
+
+        .cta-area { background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 20px; padding: 3rem 2rem; text-align: center; color: #fff; margin-top: 4rem; }
+        .cta-area h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.8rem; }
+        .cta-area p { opacity: 0.9; margin-bottom: 2rem; }
+        .cta-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        .cta-btns a { padding: 0.9rem 2rem; border-radius: 50px; font-weight: 700; font-size: 1rem; text-decoration: none; transition: 0.2s; }
+        .cta-btns .btn-white { background: #fff; color: var(--primary); }
+        .cta-btns .btn-white:hover { background: #e8f2ff; }
+        .cta-btns .btn-kakao { background: #fee500; color: #3c1e1e; }
+        .cta-btns .btn-kakao:hover { background: #f5dc00; }
+    </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "에어컨 청소 서비스",
+        "provider": {
+            "@type": "LocalBusiness",
+            "name": "클린앤파트너즈",
+            "url": "https://cp.or.kr",
+            "telephone": "+82-1588-8776"
+        },
+        "offers": [
+            {"@type": "Offer", "name": "벽걸이 에어컨 청소", "price": "60000", "priceCurrency": "KRW"},
+            {"@type": "Offer", "name": "스탠드 에어컨 청소", "price": "110000", "priceCurrency": "KRW"},
+            {"@type": "Offer", "name": "시스템 1way 에어컨 청소", "price": "80000", "priceCurrency": "KRW"},
+            {"@type": "Offer", "name": "시스템 4way 에어컨 청소", "price": "130000", "priceCurrency": "KRW"},
+            {"@type": "Offer", "name": "2in1 에어컨 청소", "price": "170000", "priceCurrency": "KRW"}
+        ]
+    }
+    </script>
 </head>
 <body>
     <header>
@@ -19,78 +116,312 @@
                 <li><a href="about.html">브랜드 소개</a></li>
                 <li><a href="contact.html">고객센터</a></li>
             </ul>
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+            <div class="nav-actions">
+                <a href="tel:15888776" class="nav-phone-btn">
+                    <i class="fas fa-phone"></i>
+                    <span class="phone-label">1588-8776</span>
+                </a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
             </div>
         </nav>
     </header>
 
     <main>
-        <section id="services-page">
-            <!-- 서비스 이벤트 배너 슬라이더 -->
-            <div class="res-banner-slider">
-                <div id="svc-banner-container" class="res-banner-inner"></div>
-                <button class="res-banner-arrow res-banner-prev" id="svc-banner-prev"><i class="fas fa-chevron-left"></i></button>
-                <button class="res-banner-arrow res-banner-next" id="svc-banner-next"><i class="fas fa-chevron-right"></i></button>
-                <div id="svc-banner-dots" class="res-banner-dots"></div>
+        <div class="svc-hero">
+            <h1>서비스 안내 및 가격</h1>
+            <p>기종별 투명한 정찰 요금제로 운영합니다</p>
+        </div>
+
+        <!-- 이벤트 배너 -->
+        <div class="res-banner-slider" style="max-width:100%">
+            <div id="svc-banner-container" class="res-banner-inner"></div>
+            <button class="res-banner-arrow res-banner-prev" id="svc-banner-prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="res-banner-arrow res-banner-next" id="svc-banner-next"><i class="fas fa-chevron-right"></i></button>
+            <div id="svc-banner-dots" class="res-banner-dots"></div>
+        </div>
+
+        <section class="svc-main">
+
+            <!-- 기종별 서비스 카드 -->
+            <h2 class="section-h2">기종별 서비스 안내</h2>
+            <p class="section-sub">에어컨 종류에 따라 최적화된 세척 방법을 적용합니다</p>
+
+            <div class="svc-card-grid">
+                <div class="svc-card">
+                    <div class="card-top">
+                        <div class="card-icon"><i class="fas fa-wind"></i></div>
+                        <h3>벽걸이 에어컨</h3>
+                    </div>
+                    <span class="svc-badge">가정용</span>
+                    <div class="price-tag">60,000원~ <small>/ 대</small></div>
+                    <p>가정에서 가장 많이 사용하는 일반 벽걸이 에어컨입니다. 필터·팬·냉각핀을 완전 분해하여 세척합니다.</p>
+                    <ul>
+                        <li>완전 분해 세척</li>
+                        <li>냉각핀 고압 세척</li>
+                        <li>팬 및 필터 살균</li>
+                        <li>작동 테스트 포함</li>
+                    </ul>
+                </div>
+                <div class="svc-card">
+                    <div class="card-top">
+                        <div class="card-icon"><i class="fas fa-server"></i></div>
+                        <h3>스탠드 에어컨</h3>
+                    </div>
+                    <span class="svc-badge">가정용</span>
+                    <div class="price-tag">110,000원~ <small>/ 대</small></div>
+                    <p>대형 공간용 스탠드 에어컨은 냉각핀 면적이 넓어 전용 고압 장비로 세심하게 세척합니다.</p>
+                    <ul>
+                        <li>이중 팬 모두 세척</li>
+                        <li>상·하단 분리 세척</li>
+                        <li>드레인 청소 포함</li>
+                        <li>악취 원인 곰팡이 제거</li>
+                    </ul>
+                </div>
+                <div class="svc-card">
+                    <div class="card-top">
+                        <div class="card-icon"><i class="fas fa-snowflake"></i></div>
+                        <h3>무풍/고급 에어컨</h3>
+                    </div>
+                    <span class="svc-badge">가정용 특수</span>
+                    <div class="price-tag">130,000원~ <small>/ 대</small></div>
+                    <p>삼성 무풍, 하이엔드 고급 모델 등 정밀 구조의 에어컨은 기종에 맞는 특수 분해 방법을 적용합니다.</p>
+                    <ul>
+                        <li>기종 맞춤 분해 방식</li>
+                        <li>마이크로 구멍 특수 세척</li>
+                        <li>고급 부품 안전 처리</li>
+                        <li>작동 이상 유무 점검</li>
+                    </ul>
+                </div>
+                <div class="svc-card">
+                    <div class="card-top">
+                        <div class="card-icon"><i class="fas fa-th-large"></i></div>
+                        <h3>시스템 에어컨 1way</h3>
+                    </div>
+                    <span class="svc-badge">주거·사무용</span>
+                    <div class="price-tag">80,000원~ <small>/ 대</small></div>
+                    <p>천장에 매립되는 1방향 시스템 에어컨으로 주거·소형 사무 공간에 주로 사용됩니다. 분해 후 정밀 세척합니다.</p>
+                    <ul>
+                        <li>천장 분리 작업 포함</li>
+                        <li>코일 및 팬 세척</li>
+                        <li>드레인 팬 청소</li>
+                        <li>필터 세척 및 건조</li>
+                    </ul>
+                </div>
+                <div class="svc-card">
+                    <div class="card-top">
+                        <div class="card-icon"><i class="fas fa-border-all"></i></div>
+                        <h3>시스템 에어컨 4way</h3>
+                    </div>
+                    <span class="svc-badge commercial">상업용</span>
+                    <div class="price-tag">130,000원~ <small>/ 대</small></div>
+                    <p>4방향으로 바람이 나오는 상업용 시스템 에어컨입니다. 구조가 복잡해 전문 장비와 기술이 필요합니다.</p>
+                    <ul>
+                        <li>4방향 모터 전체 세척</li>
+                        <li>대형 코일 전용 고압 세척</li>
+                        <li>드레인 라인 청소</li>
+                        <li>전기 부품 안전 처리</li>
+                    </ul>
+                </div>
+                <div class="svc-card">
+                    <div class="card-top">
+                        <div class="card-icon"><i class="fas fa-circle-notch"></i></div>
+                        <h3>시스템원형 360</h3>
+                    </div>
+                    <span class="svc-badge commercial">상업용</span>
+                    <div class="price-tag">150,000원~ <small>/ 대</small></div>
+                    <p>360도 원형 디자인의 시스템 에어컨으로 호텔, 고급 레스토랑, 대형 공간에 주로 사용됩니다.</p>
+                    <ul>
+                        <li>원형 패널 분리 세척</li>
+                        <li>360도 냉각핀 전체 세척</li>
+                        <li>공기 순환 경로 전체 처리</li>
+                        <li>재조립 후 동작 검증</li>
+                    </ul>
+                </div>
+                <div class="svc-card">
+                    <div class="card-top">
+                        <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+                        <h3>2in1 멀티형</h3>
+                    </div>
+                    <span class="svc-badge">가정용 복합</span>
+                    <div class="price-tag">170,000원~ <small>/ 세트</small></div>
+                    <p>스탠드와 벽걸이가 하나의 실외기에 연결된 멀티형으로, 두 실내기를 동시에 세척합니다.</p>
+                    <ul>
+                        <li>두 실내기 동시 세척</li>
+                        <li>배관 연결부 점검</li>
+                        <li>효율 최적화 작업</li>
+                        <li>멀티 세트 비용 절감</li>
+                    </ul>
+                </div>
+                <div class="svc-card">
+                    <div class="card-top">
+                        <div class="card-icon"><i class="fas fa-building"></i></div>
+                        <h3>상업용 스탠드</h3>
+                    </div>
+                    <span class="svc-badge commercial">상업용</span>
+                    <div class="price-tag">140,000원~ <small>/ 대</small></div>
+                    <p>대형 상업 공간용 스탠드 에어컨으로 일반 가정용보다 용량이 크고 구조가 복잡합니다.</p>
+                    <ul>
+                        <li>대용량 코일 전용 세척</li>
+                        <li>상업 환경 맞춤 약품</li>
+                        <li>영업 중 최소 방해</li>
+                        <li>야간·주말 작업 가능</li>
+                    </ul>
+                </div>
+                <div class="svc-card">
+                    <div class="card-top">
+                        <div class="card-icon"><i class="fas fa-fan"></i></div>
+                        <h3>FCU 팬코일유닛</h3>
+                    </div>
+                    <span class="svc-badge commercial">상업용</span>
+                    <div class="price-tag">90,000원~ <small>/ 대</small></div>
+                    <p>호텔, 오피스, 병원 등 중앙식 냉난방 시스템에 사용되는 팬코일유닛 전문 세척 서비스입니다.</p>
+                    <ul>
+                        <li>코일 및 팬 분해 세척</li>
+                        <li>필터 청소 및 교체 점검</li>
+                        <li>드레인 팬 방청 처리</li>
+                        <li>유량 밸브 상태 확인</li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="section-title">
-                <h2>합리적인 가격 안내</h2>
-                <p>제품 모델별 투명한 정찰제로 운영됩니다.</p>
+            <!-- 추가 옵션 -->
+            <h2 class="section-h2">추가 옵션 서비스</h2>
+            <p class="section-sub">기본 세척 외 추가 관리가 필요하신 경우 선택하세요</p>
+            <div class="option-cards">
+                <div class="opt-card">
+                    <div class="opt-name"><i class="fas fa-sun" style="color:var(--primary);margin-right:6px;"></i>실외기 포함</div>
+                    <div class="opt-price">+20,000원</div>
+                    <div class="opt-desc">실외기 내·외부 분리 세척으로 냉방 효율을 최대로 높입니다. 실외기 오염이 심할 경우 전력 소비가 크게 증가합니다.</div>
+                </div>
+                <div class="opt-card">
+                    <div class="opt-name"><i class="fas fa-exclamation-triangle" style="color:var(--primary);margin-right:6px;"></i>곰팡이 심함</div>
+                    <div class="opt-price">+30,000원</div>
+                    <div class="opt-desc">중증 곰팡이 오염 에어컨에 특수 항균 세제를 추가 도포하는 심화 처리입니다. 악취 원인을 근본적으로 제거합니다.</div>
+                </div>
+                <div class="opt-card">
+                    <div class="opt-name"><i class="fas fa-shield-alt" style="color:var(--primary);margin-right:6px;"></i>항균 코팅</div>
+                    <div class="opt-price">+15,000원</div>
+                    <div class="opt-desc">세척 후 항균 코팅제를 도포해 세균·곰팡이 재번식을 억제합니다. 청결 상태를 더 오래 유지할 수 있습니다.</div>
+                </div>
+                <div class="opt-card">
+                    <div class="opt-name"><i class="fas fa-thermometer-half" style="color:var(--primary);margin-right:6px;"></i>냉매충전</div>
+                    <div class="opt-price">+80,000원</div>
+                    <div class="opt-desc">냉매 압력을 점검하고 부족한 냉매를 보충합니다. 냉방 효과가 떨어졌다면 냉매 부족이 원인일 수 있습니다.</div>
+                </div>
             </div>
-            
-            <div style="max-width: 1000px; margin: 0 auto; overflow-x: auto;">
+
+            <!-- 할인 정책 -->
+            <h2 class="section-h2">수량 할인 정책</h2>
+            <p class="section-sub">여러 대를 한 번에 맡기실수록 더 큰 혜택이 적용됩니다</p>
+            <div class="discount-grid">
+                <div class="discount-item">
+                    <div class="d-qty">3대 이상</div>
+                    <div class="d-rate">5%</div>
+                    <div class="d-desc">소규모 가정·소형 사무실</div>
+                </div>
+                <div class="discount-item">
+                    <div class="d-qty">10대 이상</div>
+                    <div class="d-rate">10%</div>
+                    <div class="d-desc">중형 사무실·상업 공간</div>
+                </div>
+                <div class="discount-item">
+                    <div class="d-qty">15대 이상</div>
+                    <div class="d-rate">15%</div>
+                    <div class="d-desc">대형 사무실·건물 전체</div>
+                </div>
+            </div>
+
+            <!-- 전체 가격표 -->
+            <h2 class="section-h2">전체 가격표</h2>
+            <p class="section-sub">투명한 정찰제로 운영합니다</p>
+            <div class="notice-box">
+                <i class="fas fa-info-circle" style="margin-top:2px;flex-shrink:0;"></i>
+                오염도·설치 환경·특수 기종에 따라 실제 금액이 달라질 수 있습니다. 정확한 견적은 <a href="estimate.html" style="color:var(--primary);font-weight:700;">간편 견적 계산기</a> 또는 상담을 통해 확인하세요.
+            </div>
+            <div class="price-wrap">
                 <table class="price-table">
                     <thead>
                         <tr>
                             <th>서비스 항목</th>
-                            <th>표준 가격</th>
-                            <th>설명</th>
+                            <th>기본 가격</th>
+                            <th>구분</th>
+                            <th>특이사항</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>벽걸이 에어컨</td>
-                            <td>80,000원 ~</td>
-                            <td>가정용 일반 벽걸이 모델</td>
-                        </tr>
-                        <tr>
-                            <td>스탠드 에어컨</td>
-                            <td>130,000원 ~</td>
-                            <td>가정용 일반 스탠드 모델</td>
-                        </tr>
-                        <tr>
-                            <td>2-in-1 멀티형</td>
-                            <td>180,000원 ~</td>
-                            <td>스탠드 + 벽걸이 동시 세척</td>
-                        </tr>
-                        <tr>
-                            <td>천장형 (1Way)</td>
-                            <td>90,000원 ~</td>
-                            <td>주거용 시스템 에어컨</td>
-                        </tr>
-                        <tr>
-                            <td>천장형 (4Way)</td>
-                            <td>150,000원 ~</td>
-                            <td>상업용 시스템 에어컨</td>
-                        </tr>
+                        <tr><td>벽걸이 에어컨</td><td>60,000원~</td><td>가정용</td><td>일반 벽걸이 모델</td></tr>
+                        <tr><td>스탠드 에어컨</td><td>110,000원~</td><td>가정용</td><td>가정용 스탠드 모델</td></tr>
+                        <tr><td>무풍/고급 에어컨</td><td>130,000원~</td><td>가정용 특수</td><td>삼성 무풍 등 특수 모델</td></tr>
+                        <tr><td>시스템 1way</td><td>80,000원~</td><td>주거·사무용</td><td>천장형 1방향</td></tr>
+                        <tr><td>시스템 4way</td><td>130,000원~</td><td>상업용</td><td>천장형 4방향</td></tr>
+                        <tr><td>시스템원형 360</td><td>150,000원~</td><td>상업용</td><td>원형 360도 디자인</td></tr>
+                        <tr><td>2in1 멀티형</td><td>170,000원~</td><td>가정용 복합</td><td>스탠드+벽걸이 세트</td></tr>
+                        <tr><td>상업용 스탠드</td><td>140,000원~</td><td>상업용</td><td>대형 상업 공간용</td></tr>
+                        <tr><td>FCU 팬코일유닛</td><td>90,000원~</td><td>상업용</td><td>중앙식 냉난방 시스템</td></tr>
                     </tbody>
                 </table>
             </div>
-            <p style="margin-top: 2rem; color: #888; font-size: 0.95rem; text-align: center;">* 오염도 및 특수 모델에 따라 추가 비용이 발생할 수 있습니다.</p>
+
+            <!-- FAQ -->
+            <div class="faq-box">
+                <h2>서비스 자주 묻는 질문</h2>
+                <div class="faq-item">
+                    <div class="faq-q">청소 시간은 얼마나 걸리나요? <span>+</span></div>
+                    <div class="faq-a">기종에 따라 다르지만, 벽걸이 1대 기준 약 40~60분, 스탠드는 60~90분, 시스템 에어컨은 60~120분 정도 소요됩니다. 여러 대를 한 번에 청소할 경우 추가 시간이 필요합니다.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">당일 예약도 가능한가요? <span>+</span></div>
+                    <div class="faq-a">가능한 경우도 있지만 기사 스케줄에 따라 당일 배정이 어려울 수 있습니다. 원하시는 날짜에 확실히 예약하시려면 최소 1~2일 전에 예약해 주세요.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">실외기 청소는 꼭 필요한가요? <span>+</span></div>
+                    <div class="faq-a">실외기는 실내기와 함께 에어컨의 핵심 구성 요소입니다. 실외기가 오염되면 냉방 효율이 떨어지고 전기 요금이 증가합니다. 정기 청소 시 함께 관리하시는 것을 권장합니다.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">기업·상업 공간도 방문 가능한가요? <span>+</span></div>
+                    <div class="faq-a">네, 가능합니다. 사무실, 식당, 카페, 호텔, 병원 등 다양한 상업 공간에서 시스템 에어컨, FCU 팬코일유닛, 상업용 스탠드 등을 청소합니다. 영업 방해를 최소화하기 위해 야간·주말 작업도 협의 가능합니다.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">결제 방법은 어떻게 되나요? <span>+</span></div>
+                    <div class="faq-a">현금, 계좌이체, 카드 결제(개인·법인 카드)를 모두 지원합니다. 현장에서 시공 완료 후 결제하시면 됩니다. 세금계산서 발행도 가능합니다.</div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-area">
+                <h3>지금 바로 예약 또는 상담하세요</h3>
+                <p>간편 견적으로 예상 금액을 먼저 확인하거나, 카카오·네이버로 바로 상담하세요</p>
+                <div class="cta-btns">
+                    <a href="estimate.html" class="btn-white"><i class="fas fa-calculator"></i> 간편 견적 확인</a>
+                    <a href="reservation.html" class="btn-white"><i class="fas fa-calendar-check"></i> 예약하기</a>
+                    <a href="https://open.kakao.com/o/sgJdxooi" target="_blank" rel="noopener" class="btn-kakao"><i class="fas fa-comment-dots"></i> 카카오 상담</a>
+                </div>
+            </div>
+
         </section>
     </main>
 
     <footer>
         <div class="footer-content">
-            <p>클린앤파트너즈 에어컨 토탈 케어 | 상담전화: 1588-8776</p>
-            <p>&copy; 2026 클린앤파트너즈. All rights reserved.</p>
+            <p>클린앤파트너즈 에어컨 토탈 케어 | 상담전화: 1588-8776 | 이메일: info@cp.or.kr</p>
+            <p style="margin-top: 8px;">
+                <a href="privacy.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">개인정보처리방침</a>
+                <a href="contact.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">고객센터</a>
+                <a href="estimate.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">간편 견적</a>
+            </p>
+            <p style="margin-top: 8px;">&copy; 2026 클린앤파트너즈. All rights reserved.</p>
             <p style="margin-top: 10px; font-size: 0.8rem;"><a href="admin.html" style="color: #444; text-decoration: none;">Admin</a></p>
         </div>
     </footer>
     <script src="main.js"></script>
+    <script>
+        document.querySelectorAll('.faq-q').forEach(q => {
+            q.addEventListener('click', () => q.closest('.faq-item').classList.toggle('open'));
+        });
+    </script>
 </body>
 </html>
