@@ -581,6 +581,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   const mapTooltip = document.getElementById('map-tooltip');
 
   if (areaRegions.length && mapTooltip) {
+    mapTooltip.addEventListener('click', () => {
+      window.location.href = 'reservation.html';
+    });
+
+    mapTooltip.addEventListener('touchend', e => {
+      e.preventDefault();
+      window.location.href = 'reservation.html';
+    });
+
     areaRegions.forEach(r => {
       r.addEventListener('mouseenter', () => {
         mapTooltip.textContent = r.dataset.name + ' 예약하기 →';
@@ -596,9 +605,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         mapTooltip.style.opacity = '0';
       });
 
-      r.addEventListener('click', () => {
-        window.location.href = 'reservation.html';
+      r.addEventListener('click', e => {
+        const touch = e.clientX && e.clientY;
+        mapTooltip.textContent = r.dataset.name + ' 예약하기 →';
+        mapTooltip.style.left = e.clientX + 'px';
+        mapTooltip.style.top = e.clientY + 'px';
+        mapTooltip.style.opacity = '1';
       });
+
+      r.addEventListener('touchstart', e => {
+        const touch = e.touches[0];
+        mapTooltip.textContent = r.dataset.name + ' 예약하기 →';
+        mapTooltip.style.left = touch.clientX + 'px';
+        mapTooltip.style.top = touch.clientY + 'px';
+        mapTooltip.style.opacity = '1';
+      }, { passive: true });
 
       r.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -606,6 +627,12 @@ document.addEventListener('DOMContentLoaded', async () => {
           window.location.href = 'reservation.html';
         }
       });
+    });
+
+    document.addEventListener('click', e => {
+      if (!mapTooltip.contains(e.target) && !e.target.closest('.area-region')) {
+        mapTooltip.style.opacity = '0';
+      }
     });
   }
 });

@@ -820,7 +820,8 @@ td.no-data { padding: 3rem 0; }
     font-weight: 700;
     border-radius: 8px;
     opacity: 0;
-    pointer-events: none;
+    pointer-events: auto;
+    cursor: pointer;
     z-index: 9999;
     transform: translate(-50%, -140%);
     white-space: nowrap;
