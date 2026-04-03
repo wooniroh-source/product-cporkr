@@ -573,4 +573,39 @@ document.addEventListener('DOMContentLoaded', async () => {
       showSection('reservations');
     }
   }
+
+  // =============================================
+  // 서울 서비스 지역 맵
+  // =============================================
+  const areaRegions = document.querySelectorAll('.area-region');
+  const mapTooltip = document.getElementById('map-tooltip');
+
+  if (areaRegions.length && mapTooltip) {
+    areaRegions.forEach(r => {
+      r.addEventListener('mouseenter', () => {
+        mapTooltip.textContent = r.dataset.name + ' 예약하기 →';
+        mapTooltip.style.opacity = '1';
+      });
+
+      r.addEventListener('mousemove', e => {
+        mapTooltip.style.left = e.clientX + 'px';
+        mapTooltip.style.top = e.clientY + 'px';
+      });
+
+      r.addEventListener('mouseleave', () => {
+        mapTooltip.style.opacity = '0';
+      });
+
+      r.addEventListener('click', () => {
+        window.location.href = 'reservation.html';
+      });
+
+      r.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          window.location.href = 'reservation.html';
+        }
+      });
+    });
+  }
 });

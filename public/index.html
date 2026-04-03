@@ -147,6 +147,193 @@
             </div>
         </section>
 
+        <!-- 서비스 지역 맵 -->
+        <section id="service-area">
+            <div class="section-title">
+                <h2>서비스 지역</h2>
+                <p>서울 · 경기 · 인천 전 지역 방문 서비스 · 지역을 클릭하면 예약 페이지로 이동합니다</p>
+            </div>
+            <div class="area-map-wrapper">
+                <div id="map-tooltip" class="area-tooltip"></div>
+                <svg viewBox="0 0 700 575" class="area-map" id="seoulMap" aria-label="서비스 지역 지도">
+
+                    <!-- ── 인천광역시 ── -->
+                    <g class="area-region incheon" data-name="인천광역시" tabindex="0" role="button" aria-label="인천광역시 예약하기">
+                        <rect x="6" y="165" width="82" height="295" rx="8"/>
+                        <text x="47" y="305">
+                            <tspan x="47" dy="0">인천</tspan>
+                            <tspan x="47" dy="13">광역시</tspan>
+                        </text>
+                    </g>
+
+                    <!-- ── 경기도 ── -->
+                    <!-- 파주시: 고양시 북쪽 -->
+                    <g class="area-region gyeonggi" data-name="파주시" tabindex="0" role="button" aria-label="파주시 예약하기">
+                        <rect x="40" y="4" width="158" height="36" rx="8"/>
+                        <text x="119" y="24">파주시</text>
+                    </g>
+                    <g class="area-region gyeonggi" data-name="고양시" tabindex="0" role="button" aria-label="고양시 예약하기">
+                        <rect x="78" y="42" width="122" height="116" rx="8"/>
+                        <text x="139" y="102">고양시</text>
+                    </g>
+                    <!-- 김포시: 고양시 남쪽, 인천 오른쪽 -->
+                    <g class="area-region gyeonggi" data-name="김포시" tabindex="0" role="button" aria-label="김포시 예약하기">
+                        <rect x="88" y="162" width="82" height="144" rx="8"/>
+                        <text x="129" y="236">김포시</text>
+                    </g>
+                    <g class="area-region gyeonggi" data-name="부천시" tabindex="0" role="button" aria-label="부천시 예약하기">
+                        <rect x="90" y="308" width="80" height="76" rx="8"/>
+                        <text x="130" y="348">부천시</text>
+                    </g>
+                    <g class="area-region gyeonggi" data-name="의정부시" tabindex="0" role="button" aria-label="의정부시 예약하기">
+                        <rect x="330" y="6" width="150" height="52" rx="8"/>
+                        <text x="405" y="34">의정부시</text>
+                    </g>
+                    <g class="area-region gyeonggi" data-name="남양주시" tabindex="0" role="button" aria-label="남양주시 예약하기">
+                        <rect x="556" y="56" width="108" height="138" rx="8"/>
+                        <text x="610" y="127">남양주시</text>
+                    </g>
+                    <g class="area-region gyeonggi" data-name="구리시" tabindex="0" role="button" aria-label="구리시 예약하기">
+                        <rect x="556" y="198" width="70" height="56" rx="8"/>
+                        <text x="591" y="228">구리시</text>
+                    </g>
+                    <g class="area-region gyeonggi" data-name="하남시" tabindex="0" role="button" aria-label="하남시 예약하기">
+                        <rect x="594" y="308" width="96" height="78" rx="8"/>
+                        <text x="642" y="349">하남시</text>
+                    </g>
+                    <g class="area-region gyeonggi" data-name="성남시" tabindex="0" role="button" aria-label="성남시 예약하기">
+                        <rect x="400" y="468" width="160" height="74" rx="8"/>
+                        <text x="480" y="507">성남시</text>
+                    </g>
+                    <g class="area-region gyeonggi" data-name="수원시" tabindex="0" role="button" aria-label="수원시 예약하기">
+                        <rect x="268" y="488" width="126" height="76" rx="8"/>
+                        <text x="331" y="528">수원시</text>
+                    </g>
+                    <g class="area-region gyeonggi" data-name="안양시" tabindex="0" role="button" aria-label="안양시 예약하기">
+                        <rect x="208" y="470" width="78" height="68" rx="8"/>
+                        <text x="247" y="506">안양시</text>
+                    </g>
+                    <g class="area-region gyeonggi" data-name="광명시" tabindex="0" role="button" aria-label="광명시 예약하기">
+                        <rect x="148" y="420" width="74" height="54" rx="8"/>
+                        <text x="185" y="449">광명시</text>
+                    </g>
+
+                    <!-- ── 한강 ── -->
+                    <path class="hangang" d="M20,298 Q90,288 175,298 Q262,308 336,300 Q420,294 500,300 Q555,297 638,302 L638,320 Q555,315 500,320 Q420,316 336,320 Q262,328 175,318 Q90,308 20,318 Z"/>
+
+                    <!-- ── 서울특별시 25개 구 ── -->
+                    <g class="area-region" data-name="노원구" tabindex="0" role="button" aria-label="노원구 예약하기">
+                        <rect x="398" y="72" width="80" height="68" rx="7"/>
+                        <text x="438" y="108">노원구</text>
+                    </g>
+                    <g class="area-region" data-name="도봉구" tabindex="0" role="button" aria-label="도봉구 예약하기">
+                        <rect x="332" y="62" width="64" height="58" rx="7"/>
+                        <text x="364" y="93">도봉구</text>
+                    </g>
+                    <g class="area-region" data-name="강북구" tabindex="0" role="button" aria-label="강북구 예약하기">
+                        <rect x="308" y="112" width="70" height="58" rx="7"/>
+                        <text x="343" y="143">강북구</text>
+                    </g>
+                    <g class="area-region" data-name="은평구" tabindex="0" role="button" aria-label="은평구 예약하기">
+                        <rect x="204" y="112" width="72" height="78" rx="7"/>
+                        <text x="240" y="153">은평구</text>
+                    </g>
+                    <g class="area-region" data-name="성북구" tabindex="0" role="button" aria-label="성북구 예약하기">
+                        <rect x="338" y="162" width="80" height="62" rx="7"/>
+                        <text x="378" y="195">성북구</text>
+                    </g>
+                    <g class="area-region" data-name="중랑구" tabindex="0" role="button" aria-label="중랑구 예약하기">
+                        <rect x="480" y="138" width="64" height="70" rx="7"/>
+                        <text x="512" y="175">중랑구</text>
+                    </g>
+                    <g class="area-region" data-name="서대문구" tabindex="0" role="button" aria-label="서대문구 예약하기">
+                        <rect x="258" y="182" width="64" height="58" rx="7"/>
+                        <text x="290" y="213">서대문구</text>
+                    </g>
+                    <g class="area-region" data-name="종로구" tabindex="0" role="button" aria-label="종로구 예약하기">
+                        <rect x="316" y="198" width="70" height="54" rx="7"/>
+                        <text x="351" y="227">종로구</text>
+                    </g>
+                    <g class="area-region" data-name="동대문구" tabindex="0" role="button" aria-label="동대문구 예약하기">
+                        <rect x="402" y="202" width="68" height="54" rx="7"/>
+                        <text x="436" y="231">동대문구</text>
+                    </g>
+                    <g class="area-region" data-name="마포구" tabindex="0" role="button" aria-label="마포구 예약하기">
+                        <rect x="226" y="238" width="74" height="62" rx="7"/>
+                        <text x="263" y="271">마포구</text>
+                    </g>
+                    <g class="area-region" data-name="용산구" tabindex="0" role="button" aria-label="용산구 예약하기">
+                        <rect x="318" y="250" width="64" height="56" rx="7"/>
+                        <text x="350" y="280">용산구</text>
+                    </g>
+                    <g class="area-region" data-name="중구" tabindex="0" role="button" aria-label="중구 예약하기">
+                        <rect x="378" y="242" width="54" height="48" rx="7"/>
+                        <text x="405" y="268">중구</text>
+                    </g>
+                    <g class="area-region" data-name="성동구" tabindex="0" role="button" aria-label="성동구 예약하기">
+                        <rect x="428" y="244" width="64" height="58" rx="7"/>
+                        <text x="460" y="275">성동구</text>
+                    </g>
+                    <g class="area-region" data-name="광진구" tabindex="0" role="button" aria-label="광진구 예약하기">
+                        <rect x="488" y="206" width="64" height="58" rx="7"/>
+                        <text x="520" y="237">광진구</text>
+                    </g>
+                    <g class="area-region" data-name="강서구" tabindex="0" role="button" aria-label="강서구 예약하기">
+                        <rect x="174" y="305" width="74" height="70" rx="7"/>
+                        <text x="211" y="342">강서구</text>
+                    </g>
+                    <g class="area-region" data-name="양천구" tabindex="0" role="button" aria-label="양천구 예약하기">
+                        <rect x="234" y="320" width="58" height="60" rx="7"/>
+                        <text x="263" y="352">양천구</text>
+                    </g>
+                    <g class="area-region" data-name="영등포구" tabindex="0" role="button" aria-label="영등포구 예약하기">
+                        <rect x="278" y="302" width="58" height="60" rx="7"/>
+                        <text x="307" y="334">영등포구</text>
+                    </g>
+                    <g class="area-region" data-name="동작구" tabindex="0" role="button" aria-label="동작구 예약하기">
+                        <rect x="328" y="336" width="70" height="58" rx="7"/>
+                        <text x="363" y="367">동작구</text>
+                    </g>
+                    <g class="area-region area-highlight" data-name="강남구" tabindex="0" role="button" aria-label="강남구 예약하기">
+                        <rect x="428" y="336" width="74" height="70" rx="7"/>
+                        <text x="465" y="373">강남구</text>
+                    </g>
+                    <g class="area-region" data-name="강동구" tabindex="0" role="button" aria-label="강동구 예약하기">
+                        <rect x="526" y="310" width="64" height="70" rx="7"/>
+                        <text x="558" y="347">강동구</text>
+                    </g>
+                    <g class="area-region" data-name="구로구" tabindex="0" role="button" aria-label="구로구 예약하기">
+                        <rect x="228" y="378" width="64" height="58" rx="7"/>
+                        <text x="260" y="409">구로구</text>
+                    </g>
+                    <g class="area-region" data-name="금천구" tabindex="0" role="button" aria-label="금천구 예약하기">
+                        <rect x="240" y="434" width="56" height="52" rx="7"/>
+                        <text x="268" y="462">금천구</text>
+                    </g>
+                    <g class="area-region" data-name="관악구" tabindex="0" role="button" aria-label="관악구 예약하기">
+                        <rect x="286" y="406" width="74" height="62" rx="7"/>
+                        <text x="323" y="439">관악구</text>
+                    </g>
+                    <g class="area-region" data-name="서초구" tabindex="0" role="button" aria-label="서초구 예약하기">
+                        <rect x="376" y="400" width="78" height="70" rx="7"/>
+                        <text x="415" y="437">서초구</text>
+                    </g>
+                    <g class="area-region area-highlight" data-name="송파구" tabindex="0" role="button" aria-label="송파구 예약하기">
+                        <rect x="486" y="380" width="74" height="70" rx="7"/>
+                        <text x="523" y="417">송파구</text>
+                    </g>
+                </svg>
+
+                <!-- 범례 -->
+                <div class="area-legend">
+                    <span><span class="legend-dot ld-seoul"></span>서울특별시</span>
+                    <span><span class="legend-dot ld-gyeonggi"></span>경기도</span>
+                    <span><span class="legend-dot ld-incheon"></span>인천광역시</span>
+                </div>
+                <p class="area-notice"><i class="fas fa-map-marker-alt"></i> 해당 지역을 클릭하면 예약 페이지로 이동합니다</p>
+            </div>
+        </section>
+
         <section id="live-status" style="background: var(--light);">
             <div class="section-title">
                 <h2>실시간 서비스 현황</h2>

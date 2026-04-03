@@ -693,6 +693,164 @@ td.no-data { padding: 3rem 0; }
 .btn-delete-text:hover { background: var(--red); color: #fff; }
 
 /* =============================================
+   Service Area Map
+   ============================================= */
+#service-area { background: var(--white); }
+
+.area-map-wrapper {
+    position: relative;
+    max-width: 580px;
+    margin: 0 auto;
+}
+
+.area-map {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.08));
+}
+
+.hangang {
+    fill: #bfdbfe;
+    opacity: 0.55;
+}
+
+.area-region rect {
+    fill: #dbeafe;
+    stroke: #93c5fd;
+    stroke-width: 0.8;
+    cursor: pointer;
+    transition: fill 0.18s, stroke 0.18s;
+}
+
+.area-region:hover rect,
+.area-region:focus rect {
+    fill: #60a5fa;
+    stroke: var(--primary);
+    stroke-width: 1.2;
+    outline: none;
+}
+
+.area-region.area-active rect {
+    fill: var(--primary);
+    stroke: #1d4ed8;
+}
+
+.area-region.area-highlight rect {
+    fill: #bfdbfe;
+    stroke: #3b82f6;
+}
+
+/* 경기 */
+.area-region.gyeonggi rect {
+    fill: #dcfce7;
+    stroke: #86efac;
+    stroke-width: 0.8;
+}
+.area-region.gyeonggi:hover rect,
+.area-region.gyeonggi:focus rect {
+    fill: #86efac;
+    stroke: #16a34a;
+    stroke-width: 1.2;
+}
+.area-region.gyeonggi text { fill: #166534; }
+
+/* 인천 */
+.area-region.incheon rect {
+    fill: #fef9c3;
+    stroke: #fde047;
+    stroke-width: 0.8;
+}
+.area-region.incheon:hover rect,
+.area-region.incheon:focus rect {
+    fill: #fde047;
+    stroke: #ca8a04;
+    stroke-width: 1.2;
+}
+.area-region.incheon text { fill: #854d0e; font-size: 9.5px; }
+
+/* 범례 */
+.area-legend {
+    display: flex;
+    justify-content: center;
+    gap: 1.8rem;
+    margin-top: 16px;
+    font-size: 13px;
+    color: #555;
+    font-weight: 600;
+    flex-wrap: wrap;
+}
+.legend-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+.ld-seoul   { background: #dbeafe; border: 1.5px solid #93c5fd; }
+.ld-gyeonggi{ background: #dcfce7; border: 1.5px solid #86efac; }
+.ld-incheon { background: #fef9c3; border: 1.5px solid #fde047; }
+
+.area-region text {
+    font-size: 8.5px;
+    fill: #1e3a8a;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+    font-weight: 700;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+}
+
+.area-region:hover text,
+.area-region:focus text {
+    fill: #1e3a8a;
+}
+
+.area-region.area-active text {
+    fill: #fff;
+}
+
+.area-tooltip {
+    position: fixed;
+    background: #111827;
+    color: #fff;
+    padding: 7px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -140%);
+    white-space: nowrap;
+    transition: opacity 0.15s;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+}
+
+.area-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #111827;
+}
+
+.area-notice {
+    text-align: center;
+    color: #777;
+    font-size: 14px;
+    margin-top: 18px;
+}
+
+.area-notice i {
+    color: var(--primary);
+    margin-right: 5px;
+}
+
+/* =============================================
    Responsive Design
    ============================================= */
 
@@ -751,6 +909,10 @@ td.no-data { padding: 3rem 0; }
     .rolling-header, .rolling-item { grid-template-columns: 1fr 1fr 1fr; }
     .rolling-header .col:nth-child(4), .rolling-header .col:nth-child(5),
     .rolling-item .col:nth-child(4), .rolling-item .col:nth-child(5) { display: none; }
+
+    /* 서비스 지역 맵 모바일 */
+    .area-map-wrapper { max-width: 100%; }
+    .area-region text { font-size: 7.5px; }
 
     /* 달력 모바일 대응 */
     #reservation-page { padding: 3rem 4%; }
