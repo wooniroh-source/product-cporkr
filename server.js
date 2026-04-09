@@ -103,7 +103,7 @@ async function initDB() {
       )
     `);
 
-    // 기존 banners 테이블에 mid 배너 전용 컬럼 추가 (이미 존재하면 무시)
+    // 기존 banners 테이블에 mid 배너 전용 컬럼 추가 (INFORMATION_SCHEMA로 존재 여부 확인 후 추가)
     const midCols = [
       ['company_name', 'VARCHAR(100)'],
       ['total_units',  'VARCHAR(50)'],
@@ -113,8 +113,18 @@ async function initDB() {
     ];
     for (const [col, def] of midCols) {
       try {
-        await pool.query(`ALTER TABLE banners ADD COLUMN IF NOT EXISTS ${col} ${def}`);
-      } catch (_) { /* 이미 존재하면 무시 */ }
+        const [existing] = await pool.query(
+          `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS
+           WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'banners' AND COLUMN_NAME = ?`,
+          [col]
+        );
+        if (existing.length === 0) {
+          await pool.query(`ALTER TABLE banners ADD COLUMN ${col} ${def}`);
+          console.log(`✅ 컬럼 추가 완료: banners.${col}`);
+        }
+      } catch (e) {
+        console.error(`⚠️ 컬럼 추가 실패 (${col}):`, e.message);
+      }
     }
 
     await runQuery('process_steps', `
