@@ -26,16 +26,21 @@ CREATE TABLE IF NOT EXISTS contacts (
 
 -- 배너 (hero/mid/res/svc/about 통합)
 CREATE TABLE IF NOT EXISTS banners (
-  id          INT AUTO_INCREMENT PRIMARY KEY,
-  banner_type VARCHAR(10)  NOT NULL,
-  badge       VARCHAR(50),
-  title       VARCHAR(200) NOT NULL,
-  description TEXT,
-  image_url   VARCHAR(500),
-  btn_text    VARCHAR(50),
-  btn_link    VARCHAR(300),
-  sort_order  INT DEFAULT 0,
-  created_at  DATETIME DEFAULT CURRENT_TIMESTAMP
+  id           INT AUTO_INCREMENT PRIMARY KEY,
+  banner_type  VARCHAR(10)  NOT NULL,
+  badge        VARCHAR(50),
+  title        VARCHAR(200) NOT NULL,
+  description  TEXT,
+  image_url    VARCHAR(500),
+  btn_text     VARCHAR(50),
+  btn_link     VARCHAR(300),
+  sort_order   INT DEFAULT 0,
+  company_name VARCHAR(100),   -- mid 배너: 업체명
+  total_units  VARCHAR(50),    -- mid 배너: 총대수
+  work_time    VARCHAR(50),    -- mid 배너: 소요시간
+  personnel    VARCHAR(50),    -- mid 배너: 투입인원
+  work_days    VARCHAR(50),    -- mid 배너: 소요일자
+  created_at   DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- 6단계 공정
@@ -70,9 +75,9 @@ INSERT INTO banners (banner_type, title, description, image_url, btn_text, btn_l
 ('hero', '친환경 세제 안심 공법', '우리가족 건강을 생각하는 FDA 승인 친환경 약품 사용', 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=1200&q=80', '브랜드 스토리', 'about.html', 3);
 
 -- 중간 배너
-INSERT INTO banners (banner_type, title, description, image_url, sort_order) VALUES
-('mid', '완벽한 분해, 철저한 살균', '보이지 않는 곳까지 클린앤파트너즈가 책임집니다.', 'https://images.unsplash.com/photo-1558389186-438424b00a32?auto=format&fit=crop&w=1200&q=80', 1),
-('mid', '쾌적한 여름의 시작', '지금 예약하고 시원한 바람을 만나보세요.', 'https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=1200&q=80', 2);
+INSERT INTO banners (banner_type, title, description, image_url, sort_order, company_name, total_units, work_time, personnel, work_days) VALUES
+('mid', '시스템 에어컨 완전 분해 세척', '보이지 않는 곳까지 클린앤파트너즈가 책임집니다.', 'https://images.unsplash.com/photo-1558389186-438424b00a32?auto=format&fit=crop&w=1200&q=80', 1, 'ABC빌딩관리', '24대', '8시간', '3명', '2024.03.15'),
+('mid', '대형 아파트 단지 정기 케어', '지금 예약하고 시원한 바람을 만나보세요.', 'https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=1200&q=80', 2, '행복아파트 관리사무소', '60대', '2일', '5명', '2024.04.20');
 
 -- 예약 이벤트 배너
 INSERT INTO banners (banner_type, badge, title, description, image_url, sort_order) VALUES

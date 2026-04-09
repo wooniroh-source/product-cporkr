@@ -227,17 +227,43 @@
                         <input type="hidden" id="midBannerEditId" value="">
                         <div class="form-grid">
                             <div class="input-group">
-                                <label>배너 제목</label>
-                                <input type="text" id="midBannerTitle" required>
+                                <label>업체명</label>
+                                <input type="text" id="midBannerCompanyName" placeholder="예: ABC빌딩관리">
                             </div>
                             <div class="input-group">
-                                <label>배너 이미지 URL</label>
-                                <input type="url" id="midBannerUrl" required>
+                                <label>이미지 제목 <small style="color:#e74c3c;">*필수</small></label>
+                                <input type="text" id="midBannerTitle" placeholder="예: 시스템 에어컨 완전 분해 세척" required>
                             </div>
                         </div>
-                        <div class="input-group">
-                            <label>배너 설명</label>
-                            <input type="text" id="midBannerDesc" required>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>총 대수</label>
+                                <input type="text" id="midBannerTotalUnits" placeholder="예: 24대">
+                            </div>
+                            <div class="input-group">
+                                <label>소요시간</label>
+                                <input type="text" id="midBannerWorkTime" placeholder="예: 8시간">
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>투입인원</label>
+                                <input type="text" id="midBannerPersonnel" placeholder="예: 3명">
+                            </div>
+                            <div class="input-group">
+                                <label>소요일자</label>
+                                <input type="text" id="midBannerWorkDays" placeholder="예: 2024.03.15">
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>배너 설명 <small style="color:#888;">(슬라이드 하단 부제)</small></label>
+                                <input type="text" id="midBannerDesc" placeholder="예: 보이지 않는 곳까지 클린앤파트너즈가 책임집니다.">
+                            </div>
+                            <div class="input-group">
+                                <label>배너 이미지 URL <small style="color:#e74c3c;">*필수</small></label>
+                                <input type="url" id="midBannerUrl" placeholder="https://images.unsplash.com/..." required>
+                            </div>
                         </div>
                         <div style="display:flex;gap:1rem;align-items:center;">
                             <button type="submit" id="midBannerSubmitBtn" class="submit-booking-btn" style="width:auto;padding:0.8rem 2rem;">중간 배너 등록하기</button>

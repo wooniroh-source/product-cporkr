@@ -85,18 +85,37 @@ async function initDB() {
 
     await runQuery('banners', `
       CREATE TABLE IF NOT EXISTS banners (
-        id          INT AUTO_INCREMENT PRIMARY KEY,
-        banner_type VARCHAR(10)  NOT NULL,
-        badge       VARCHAR(50),
-        title       VARCHAR(200) NOT NULL,
-        description TEXT,
-        image_url   VARCHAR(500),
-        btn_text    VARCHAR(50),
-        btn_link    VARCHAR(300),
-        sort_order  INT DEFAULT 0,
-        created_at  DATETIME DEFAULT CURRENT_TIMESTAMP
+        id           INT AUTO_INCREMENT PRIMARY KEY,
+        banner_type  VARCHAR(10)  NOT NULL,
+        badge        VARCHAR(50),
+        title        VARCHAR(200) NOT NULL,
+        description  TEXT,
+        image_url    VARCHAR(500),
+        btn_text     VARCHAR(50),
+        btn_link     VARCHAR(300),
+        sort_order   INT DEFAULT 0,
+        company_name VARCHAR(100),
+        total_units  VARCHAR(50),
+        work_time    VARCHAR(50),
+        personnel    VARCHAR(50),
+        work_days    VARCHAR(50),
+        created_at   DATETIME DEFAULT CURRENT_TIMESTAMP
       )
     `);
+
+    // 기존 banners 테이블에 mid 배너 전용 컬럼 추가 (이미 존재하면 무시)
+    const midCols = [
+      ['company_name', 'VARCHAR(100)'],
+      ['total_units',  'VARCHAR(50)'],
+      ['work_time',    'VARCHAR(50)'],
+      ['personnel',    'VARCHAR(50)'],
+      ['work_days',    'VARCHAR(50)']
+    ];
+    for (const [col, def] of midCols) {
+      try {
+        await pool.query(`ALTER TABLE banners ADD COLUMN IF NOT EXISTS ${col} ${def}`);
+      } catch (_) { /* 이미 존재하면 무시 */ }
+    }
 
     await runQuery('process_steps', `
       CREATE TABLE IF NOT EXISTS process_steps (
@@ -131,8 +150,8 @@ async function initDB() {
         ('hero', '당신의 숨결을 디자인합니다', '전문 분해 세척으로 시작하는 깨끗한 실내 공기 솔루션', 'https://images.unsplash.com/photo-1590402444816-05d848218571?auto=format&fit=crop&w=1200&q=80', '온라인 예약하기', 'reservation.html', 1),
         ('hero', '10년 경력의 베테랑 엔지니어', '까다로운 시스템 에어컨부터 가정용까지 완벽하게 케어합니다', 'https://images.unsplash.com/photo-1581094288338-2314dddb7bc3?auto=format&fit=crop&w=1200&q=80', '서비스 상세 보기', 'services.html', 2),
         ('hero', '친환경 세제 안심 공법', '우리가족 건강을 생각하는 FDA 승인 친환경 약품 사용', 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=1200&q=80', '브랜드 스토리', 'about.html', 3),
-        ('mid', '완벽한 분해, 철저한 살균', '보이지 않는 곳까지 클린앤파트너즈가 책임집니다.', 'https://images.unsplash.com/photo-1558389186-438424b00a32?auto=format&fit=crop&w=1200&q=80', null, null, 1),
-        ('mid', '쾌적한 여름의 시작', '지금 예약하고 시원한 바람을 만나보세요.', 'https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=1200&q=80', null, null, 2)
+        ('mid', '시스템 에어컨 완전 분해 세척', '보이지 않는 곳까지 클린앤파트너즈가 책임집니다.', 'https://images.unsplash.com/photo-1558389186-438424b00a32?auto=format&fit=crop&w=1200&q=80', null, null, 1),
+        ('mid', '대형 아파트 단지 정기 케어', '지금 예약하고 시원한 바람을 만나보세요.', 'https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=1200&q=80', null, null, 2)
       `);
       console.log('✅ 기본 배너 데이터 생성 완료');
     }
@@ -277,14 +296,15 @@ app.get('/api/banners/:type', async (req, res) => {
 
 app.post('/api/banners/:type', auth, async (req, res) => {
   try {
-    const { badge, title, description, image_url, btn_text, btn_link } = req.body;
+    const { badge, title, description, image_url, btn_text, btn_link, company_name, total_units, work_time, personnel, work_days } = req.body;
     const [max] = await pool.query(
       'SELECT COALESCE(MAX(sort_order),0)+1 AS next FROM banners WHERE banner_type = ?',
       [req.params.type]
     );
     const [result] = await pool.query(
-      'INSERT INTO banners (banner_type, badge, title, description, image_url, btn_text, btn_link, sort_order) VALUES (?,?,?,?,?,?,?,?)',
-      [req.params.type, badge||null, title, description||null, image_url||null, btn_text||null, btn_link||null, max[0].next]
+      'INSERT INTO banners (banner_type, badge, title, description, image_url, btn_text, btn_link, sort_order, company_name, total_units, work_time, personnel, work_days) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
+      [req.params.type, badge||null, title, description||null, image_url||null, btn_text||null, btn_link||null, max[0].next,
+       company_name||null, total_units||null, work_time||null, personnel||null, work_days||null]
     );
     res.json({ id: result.insertId });
   } catch (e) { res.status(500).json({ error: e.message }); }
@@ -292,10 +312,12 @@ app.post('/api/banners/:type', auth, async (req, res) => {
 
 app.put('/api/banners/:type/:id', auth, async (req, res) => {
   try {
-    const { badge, title, description, image_url, btn_text, btn_link } = req.body;
+    const { badge, title, description, image_url, btn_text, btn_link, company_name, total_units, work_time, personnel, work_days } = req.body;
     await pool.query(
-      'UPDATE banners SET badge=?, title=?, description=?, image_url=?, btn_text=?, btn_link=? WHERE id=? AND banner_type=?',
-      [badge||null, title, description||null, image_url||null, btn_text||null, btn_link||null, req.params.id, req.params.type]
+      'UPDATE banners SET badge=?, title=?, description=?, image_url=?, btn_text=?, btn_link=?, company_name=?, total_units=?, work_time=?, personnel=?, work_days=? WHERE id=? AND banner_type=?',
+      [badge||null, title, description||null, image_url||null, btn_text||null, btn_link||null,
+       company_name||null, total_units||null, work_time||null, personnel||null, work_days||null,
+       req.params.id, req.params.type]
     );
     res.json({ ok: true });
   } catch (e) { res.status(500).json({ error: e.message }); }
